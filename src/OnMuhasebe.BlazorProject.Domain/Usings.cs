@@ -9,3 +9,6 @@ global using OnMuhasebe.BlazorProject.Subeler;
 global using OnMuhasebe.BlazorProject.Bankalar;
 global using OnMuhasebe.BlazorProject.Birimler;
 global using OnMuhasebe.BlazorProject.Depolar;
+global using OnMuhasebe.BlazorProject.Cariler;
+global using OnMuhasebe.BlazorProject.Donemler;
+global using OnMuhasebe.BlazorProject.Faturalar;

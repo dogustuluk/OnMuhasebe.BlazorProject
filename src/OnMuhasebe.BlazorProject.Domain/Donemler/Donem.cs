@@ -5,4 +5,6 @@ public class Donem:FullAuditedAggregateRoot<Guid>
     public string Ad { get; set; }
     public string Aciklama { get; set; }
     public bool Durum { get; set; }
+    //nav prop Fatura
+    public ICollection<Fatura> Faturalar { get; set; }
 }

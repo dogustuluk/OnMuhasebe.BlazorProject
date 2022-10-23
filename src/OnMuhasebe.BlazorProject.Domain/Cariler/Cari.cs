@@ -14,4 +14,6 @@ public class Cari:FullAuditedAggregateRoot<Guid>
     //nav properties
     public OzelKod OzelKod1 { get; set; }
     public OzelKod OzelKod2 { get; set; }
+    //nav prop Fatura
+    public ICollection<Fatura> Faturalar { get; set; }
 }
