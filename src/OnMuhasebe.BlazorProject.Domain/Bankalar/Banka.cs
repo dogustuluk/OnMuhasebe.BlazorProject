@@ -10,4 +10,6 @@ public class Banka:FullAuditedAggregateRoot<Guid>
     //nav prop
     public OzelKod OzelKod1 { get; set; }
     public OzelKod OzelKod2 { get; set; }
+    //nav prop for BankaSube
+    public ICollection<BankaSube> BankaSubeler { get; set; }
 }
