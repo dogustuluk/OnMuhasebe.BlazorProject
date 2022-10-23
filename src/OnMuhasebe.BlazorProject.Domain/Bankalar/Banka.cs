@@ -7,4 +7,11 @@ public class Banka:FullAuditedAggregateRoot<Guid>
     public Guid? OzelKod2Id { get; set; }
     public string Aciklama { get; set; }
     public bool Durum { get; set; }
+    //nav prop
+    public OzelKod OzelKod1 { get; set; }
+    public OzelKod OzelKod2 { get; set; }
+    //nav prop for BankaSube
+    public ICollection<BankaSube> BankaSubeler { get; set; }
+    //nav prop MakbuzHareket
+    public ICollection<MakbuzHareket> MakbuzHareketler { get; set; }
 }

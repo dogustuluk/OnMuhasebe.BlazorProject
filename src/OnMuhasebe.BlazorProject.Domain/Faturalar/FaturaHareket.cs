@@ -19,4 +19,10 @@ public class FaturaHareket:FullAuditedEntity<Guid>
     public decimal KdvTutar { get; set; }
     public decimal NetTutar { get; set; }
     public string Aciklama { get; set; }
+    //nav prop
+    public Fatura Fatura { get; set; }
+    public Stok Stok { get; set; }
+    public Hizmet Hizmet { get; set; }
+    public Masraf Masraf { get; set; }
+    public Depo Depo { get; set; }
 }

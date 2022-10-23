@@ -23,4 +23,14 @@ public class BankaHesap:FullAuditedAggregateRoot<Guid>
     public Guid SubeId { get; set; }
     //--
     public bool Durum { get; set; }
+    //navigation properties. bire-çok ilişkiler vardır. burada bir ile bahsedilen kısım oluşturuldu.
+    public BankaSube BankaSube { get; set; } //bire-çok ilişki var banka hesap ile banka şube arasında.
+    public OzelKod OzelKod1 { get; set; }
+    public OzelKod OzelKod2 { get; set; }
+    public Sube Sube { get; set; }
+    //nav prop Makbuz
+    public ICollection<Makbuz> Makbuzlar { get; set; }
+    //nav prop MakbuzHareket
+    public ICollection<MakbuzHareket> MakbuzHareketler { get; set; }
+
 }
