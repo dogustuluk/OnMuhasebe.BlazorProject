@@ -37,4 +37,7 @@ public class OzelKod:FullAuditedAggregateRoot<Guid>
     //nav prop10 Makbuz
     public ICollection<Makbuz> OzelKod1Makbuzlar { get; set; }
     public ICollection<Makbuz> OzelKod2Makbuzlar { get; set; }
+    //nav prop11 Stok
+    public ICollection<Stok> OzelKod1Stoklar { get; set; }
+    public ICollection<Stok> OzelKod2Stoklar { get; set; }
 }
