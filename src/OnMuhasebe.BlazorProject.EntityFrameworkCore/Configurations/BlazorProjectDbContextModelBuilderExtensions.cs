@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using Microsoft.EntityFrameworkCore;
+using OnMuhasebe.BlazorProject.BankaHesaplar;
 using OnMuhasebe.BlazorProject.Bankalar;
 using OnMuhasebe.BlazorProject.BankaSubeler;
 using OnMuhasebe.BlazorProject.Consts;
@@ -113,6 +114,65 @@ public static class BlazorProjectDbContextModelBuilderExtensions
                 .WithMany(x => x.OzelKod2BankaSubeler)
                 .OnDelete(DeleteBehavior.NoAction);
             //b.HasOne<Banka>().WithMany().HasForeignKey(x => x.BankaId);//generic yapıyı eğer navigation property tanımlamazsak kullanırız.
+        });
+    }
+    public static void ConfigureBankaHesap(this ModelBuilder builder)
+    {
+        builder.Entity<BankaHesap>(b =>
+        {
+            b.ToTable(BlazorProjectConsts.DbTablePrefix + "BankaHesaplar", BlazorProjectConsts.DbSchema);//blazorProjectConst ile oluşturulan tablonun önünde hangi string değerin geleceğini belirtir. burada App olarak verilmiş, isteğe bağlı olarak o sınıftan bu isim değiştirilebilir.
+            b.ConfigureByConvention();
+
+            //properties->
+            b.Property(x => x.Kod)
+                .IsRequired()
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(EntityConsts.MaxKodLength);
+            b.Property(x => x.Ad)
+                .IsRequired()
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(EntityConsts.MaxAdLength);
+            b.Property(x => x.HesapTuru)
+                .IsRequired()
+                .HasColumnType(SqlDbType.TinyInt.ToString());
+            b.Property(x => x.HesapNo)
+                .IsRequired()
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(BankaHesapConsts.MaxHesapNoLength);
+            b.Property(x => x.IbanNo)
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(BankaHesapConsts.MaxIbanNoLength);
+            b.Property(x => x.BankaSubeId)
+                .IsRequired()
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+            b.Property(x => x.OzelKod1)
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+            b.Property(x => x.OzelKod2)
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+            b.Property(x => x.SubeId)
+                .IsRequired()
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+            b.Property(x => x.Aciklama)
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(EntityConsts.MaxAciklamaLength);
+            b.Property(x => x.Durum)
+                .HasColumnType(SqlDbType.Bit.ToString());
+            //indexes->
+            b.HasIndex(x => x.Kod);
+            //relations->
+            b.HasOne(x => x.BankaSube)
+                .WithMany(x => x.BankaHesaplar)
+                .OnDelete(DeleteBehavior.Cascade);
+            b.HasOne(x => x.OzelKod1)
+                .WithMany(x => x.OzelKod1BankaHesaplar)
+                .OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.OzelKod2)
+                .WithMany(x => x.OzelKod2BankaHesaplar)
+                .OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Sube)
+                .WithMany(x => x.BankaHesaplar)
+                .OnDelete(DeleteBehavior.NoAction);
+
         });
     }
 

@@ -113,5 +113,6 @@ public class BlazorProjectDbContext :
         /* Configure your own tables/entities inside here */
         builder.ConfigureBanka();
         builder.ConfigureBankaSube();
+        builder.ConfigureBankaHesap();
     }
 }
