@@ -15,4 +15,6 @@ public class Stok:FullAuditedAggregateRoot<Guid>
     public Birim Birim { get; set; }
     public OzelKod OzelKod1 { get; set; }
     public OzelKod OzelKod2 { get; set; }
+    //nav prop FaturaHareket
+    public ICollection<FaturaHareket> FaturaHareketler { get; set; }
 }

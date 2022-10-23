@@ -14,4 +14,6 @@ public class Depo:FullAuditedAggregateRoot<Guid>
     public Sube Sube { get; set; }//bir deponun bir tane şubesi varken bir şubenin birden fazla deposu olabilir.
     //nav prop FirmaParametre
     public ICollection<FirmaParametre> FirmaParametreler { get; set; }
+    //nav prop FaturaHareket
+    public ICollection<FaturaHareket> FaturaHareketler { get; set; }
 }

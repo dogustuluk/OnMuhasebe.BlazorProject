@@ -23,4 +23,6 @@ public class Fatura:FullAuditedAggregateRoot<Guid>
     public OzelKod OzelKod2 { get; set; }
     public Sube Sube { get; set; }
     public Donem Donem { get; set; }
+    //nav prop FaturaHareket
+    public ICollection<FaturaHareket> FaturaHareketler { get; set; }
 }
