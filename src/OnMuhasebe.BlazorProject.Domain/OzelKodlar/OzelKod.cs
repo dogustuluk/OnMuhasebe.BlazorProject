@@ -28,4 +28,7 @@ public class OzelKod:FullAuditedAggregateRoot<Guid>
     //nav prop7 fatura
     public ICollection<Fatura> OzelKod1Faturalar { get; set; }
     public ICollection<Fatura> OzelKod2Faturalar { get; set; }
+    //nav prop8 Birim
+    public ICollection<Hizmet> OzelKod1Hizmetler { get; set; }
+    public ICollection<Hizmet> OzelKod2Hizmetler { get; set; }
 }
