@@ -19,4 +19,7 @@ public class OzelKod:FullAuditedAggregateRoot<Guid>
     //nav prop4 Birim
     public ICollection<Birim> OzelKod1Birimler { get; set; }
     public ICollection<Birim> OzelKod2Birimler { get; set; }
+    //nav prop4 Cari
+    public ICollection<Birim> OzelKod1Cariler { get; set; }
+    public ICollection<Birim> OzelKod2Cariler { get; set; }
 }
