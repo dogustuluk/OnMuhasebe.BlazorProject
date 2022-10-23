@@ -4,7 +4,7 @@ public class BankaHesap:FullAuditedAggregateRoot<Guid>
 {
     public string Kod { get; set; }
     public string Ad { get; set; }
-    public BankaHesapTuru BankaHesapTuru  { get; set; }
+    public BankaHesapTuru HesapTuru  { get; set; }
     public string HesapNo { get; set; }
     public string IbanNo { get; set; }
     public string Aciklama { get; set; }
