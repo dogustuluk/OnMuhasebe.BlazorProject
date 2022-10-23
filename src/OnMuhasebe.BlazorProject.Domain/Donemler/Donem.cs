@@ -9,4 +9,6 @@ public class Donem:FullAuditedAggregateRoot<Guid>
     public ICollection<Fatura> Faturalar { get; set; }
     //nav prop Makbuz
     public ICollection<Makbuz> Makbuzlar { get; set; }
+    //nav prop FirmaParametre
+    public ICollection<FirmaParametre> FirmaParametreler { get; set; }
 }

@@ -12,4 +12,6 @@ public class Depo:FullAuditedAggregateRoot<Guid>
     public OzelKod OzelKod1 { get; set; }
     public OzelKod OzelKod2 { get; set; }
     public Sube Sube { get; set; }//bir deponun bir tane şubesi varken bir şubenin birden fazla deposu olabilir.
+    //nav prop FirmaParametre
+    public ICollection<FirmaParametre> FirmaParametreler { get; set; }
 }

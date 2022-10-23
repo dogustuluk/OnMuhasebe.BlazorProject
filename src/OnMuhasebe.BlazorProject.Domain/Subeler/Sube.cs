@@ -1,5 +1,5 @@
 ﻿namespace OnMuhasebe.BlazorProject.Subeler;
-public class Sube:FullAuditedAggregateRoot<Guid>
+public class Sube : FullAuditedAggregateRoot<Guid>
 {
     public string Kod { get; set; }
     public string Ad { get; set; }
@@ -15,4 +15,6 @@ public class Sube:FullAuditedAggregateRoot<Guid>
     public ICollection<Kasa> Kasalar { get; set; }
     //nav prop Makbuz
     public ICollection<Makbuz> Makbuzlar { get; set; }
+    //nav prop FirmaParametre
+    public ICollection<FirmaParametre> FirmaParametreler { get; set; }
 }
