@@ -14,5 +14,7 @@ public class Kasa:FullAuditedAggregateRoot<Guid>
     public Sube Sube { get; set; }
     //nav prop Makbuz
     public ICollection<Makbuz> Makbuzlar { get; set; }
+    //nav prop MakbuzHareket
+    public ICollection<MakbuzHareket> MakbuzHareketler { get; set; }
 
 }

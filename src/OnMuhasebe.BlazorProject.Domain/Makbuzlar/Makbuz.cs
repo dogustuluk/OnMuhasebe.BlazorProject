@@ -27,4 +27,6 @@ public class Makbuz:FullAuditedAggregateRoot<Guid>
     public OzelKod OzelKod2 { get; set; }
     public Sube Sube { get; set; }
     public Donem Donem { get; set; }
+    //nav prop MakbuzHareket
+    public ICollection<MakbuzHareket> MakbuzHareketler { get; set; }
 }

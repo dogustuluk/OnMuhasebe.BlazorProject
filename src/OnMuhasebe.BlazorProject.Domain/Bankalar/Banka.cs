@@ -12,4 +12,6 @@ public class Banka:FullAuditedAggregateRoot<Guid>
     public OzelKod OzelKod2 { get; set; }
     //nav prop for BankaSube
     public ICollection<BankaSube> BankaSubeler { get; set; }
+    //nav prop MakbuzHareket
+    public ICollection<MakbuzHareket> MakbuzHareketler { get; set; }
 }
