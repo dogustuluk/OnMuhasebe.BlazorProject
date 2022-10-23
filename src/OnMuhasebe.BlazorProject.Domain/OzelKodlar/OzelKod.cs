@@ -31,4 +31,7 @@ public class OzelKod:FullAuditedAggregateRoot<Guid>
     //nav prop8 Birim
     public ICollection<Hizmet> OzelKod1Hizmetler { get; set; }
     public ICollection<Hizmet> OzelKod2Hizmetler { get; set; }
+    //nav prop9 Kasa
+    public ICollection<Kasa> OzelKod1Kasalar { get; set; }
+    public ICollection<Kasa> OzelKod2Kasalar { get; set; }
 }
