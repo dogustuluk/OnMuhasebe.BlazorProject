@@ -1,4 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OnMuhasebe.BlazorProject.BankaHesaplar;
+using OnMuhasebe.BlazorProject.Bankalar;
+using OnMuhasebe.BlazorProject.BankaSubeler;
+using OnMuhasebe.BlazorProject.Birimler;
+using OnMuhasebe.BlazorProject.Cariler;
+using OnMuhasebe.BlazorProject.Depolar;
+using OnMuhasebe.BlazorProject.Donemler;
+using OnMuhasebe.BlazorProject.Faturalar;
+using OnMuhasebe.BlazorProject.Hizmetler;
+using OnMuhasebe.BlazorProject.Kasalar;
+using OnMuhasebe.BlazorProject.Makbuzlar;
+using OnMuhasebe.BlazorProject.Masraflar;
+using OnMuhasebe.BlazorProject.OzelKodlar;
+using OnMuhasebe.BlazorProject.Parametreler;
+using OnMuhasebe.BlazorProject.Stoklar;
+using OnMuhasebe.BlazorProject.Subeler;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -51,6 +67,23 @@ public class BlazorProjectDbContext :
     public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
 
     #endregion
+    //dbset ekleme. FaturaHareketler ve MakbuzHareketler AggregateRoot olmadığı için eklemiyoruz. Buraya sadece AggreateRoot olanlar eklenir.
+    public DbSet<Banka> Bankalar { get; set; }
+    public DbSet<BankaSube> BankaSubeler { get; set; }
+    public DbSet<BankaHesap> BankaHesaplar { get; set; }
+    public DbSet<Birim> Birimler { get; set; }
+    public DbSet<Cari> Cariler { get; set; }
+    public DbSet<Depo> Depolar { get; set; }
+    public DbSet<Donem> Donemler { get; set; }
+    public DbSet<FirmaParametre> FirmaParametreler { get; set; }
+    public DbSet<Fatura> Faturalar { get; set; }
+    public DbSet<Hizmet> Hizmetler { get; set; }
+    public DbSet<Kasa> KasaHareketler { get; set; }
+    public DbSet<Makbuz> Makbuzlar { get; set; }
+    public DbSet<Masraf> Masraflar { get; set; }
+    public DbSet<OzelKod> OzelKodlar { get; set; }
+    public DbSet<Stok> Stoklar { get; set; }
+    public DbSet<Sube> Subeler { get; set; }
 
     public BlazorProjectDbContext(DbContextOptions<BlazorProjectDbContext> options)
         : base(options)
