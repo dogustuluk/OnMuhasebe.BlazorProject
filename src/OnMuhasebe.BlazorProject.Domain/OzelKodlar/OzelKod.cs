@@ -16,4 +16,7 @@ public class OzelKod:FullAuditedAggregateRoot<Guid>
     //nav prop3 BankaSube
     public ICollection<BankaSube> OzelKod1BankaSubeler { get; set; }
     public ICollection<BankaSube> OzelKod2BankaSubeler { get; set; }
+    //nav prop4 Birim
+    public ICollection<Birim> OzelKod1Birimler { get; set; }
+    public ICollection<Birim> OzelKod2Birimler { get; set; }
 }

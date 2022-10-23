@@ -7,3 +7,4 @@ global using OnMuhasebe.BlazorProject.BankaSubeler;
 global using OnMuhasebe.BlazorProject.OzelKodlar;
 global using OnMuhasebe.BlazorProject.Subeler;
 global using OnMuhasebe.BlazorProject.Bankalar;
+global using OnMuhasebe.BlazorProject.Birimler;
