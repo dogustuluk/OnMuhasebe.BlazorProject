@@ -22,4 +22,7 @@ public class OzelKod:FullAuditedAggregateRoot<Guid>
     //nav prop4 Cari
     public ICollection<Birim> OzelKod1Cariler { get; set; }
     public ICollection<Birim> OzelKod2Cariler { get; set; }
+    //nav prop4 depo
+    public ICollection<Depo> OzelKod1Depolar { get; set; }
+    public ICollection<Depo> OzelKod2Depolar { get; set; }
 }

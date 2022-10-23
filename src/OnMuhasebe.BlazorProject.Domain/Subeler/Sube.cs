@@ -7,4 +7,6 @@ public class Sube:FullAuditedAggregateRoot<Guid>
     public bool Durum { get; set; }
     //nav property
     public ICollection<BankaHesap> BankaHesaplar { get; set; }
+    //nav prop Depo
+    public ICollection<Depo> Depolar { get; set; }
 }

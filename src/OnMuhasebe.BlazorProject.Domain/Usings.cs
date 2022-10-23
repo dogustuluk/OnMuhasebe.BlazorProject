@@ -8,3 +8,4 @@ global using OnMuhasebe.BlazorProject.OzelKodlar;
 global using OnMuhasebe.BlazorProject.Subeler;
 global using OnMuhasebe.BlazorProject.Bankalar;
 global using OnMuhasebe.BlazorProject.Birimler;
+global using OnMuhasebe.BlazorProject.Depolar;
