@@ -18,4 +18,5 @@ global using OnMuhasebe.BlazorProject.Makbuzlar;
 global using Volo.Abp.Identity;
 global using OnMuhasebe.BlazorProject.Parametreler;
 global using OnMuhasebe.BlazorProject.Stoklar;
+global using OnMuhasebe.BlazorProject.Masraflar;
 

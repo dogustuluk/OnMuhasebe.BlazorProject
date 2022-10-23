@@ -14,4 +14,6 @@ public class Birim:FullAuditedAggregateRoot<Guid>
     public ICollection<Hizmet> Hizmetler { get; set; }
     //nav prop Stok
     public ICollection<Stok> Stoklar { get; set; }
+    //nav prop Masraf
+    public ICollection<Masraf> Masraflar { get; set; }
 }

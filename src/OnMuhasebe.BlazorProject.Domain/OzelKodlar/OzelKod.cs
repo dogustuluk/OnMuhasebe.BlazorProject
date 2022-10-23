@@ -40,4 +40,7 @@ public class OzelKod:FullAuditedAggregateRoot<Guid>
     //nav prop11 Stok
     public ICollection<Stok> OzelKod1Stoklar { get; set; }
     public ICollection<Stok> OzelKod2Stoklar { get; set; }
+    //nav prop12 Masraf
+    public ICollection<Masraf> OzelKod1Masraflar { get; set; }
+    public ICollection<Masraf> OzelKod2Masraflar { get; set; }
 }
