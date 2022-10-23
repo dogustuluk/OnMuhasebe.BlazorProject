@@ -13,4 +13,6 @@ public class Sube:FullAuditedAggregateRoot<Guid>
     public ICollection<Fatura> Faturalar { get; set; }
     //nav prop Kasa
     public ICollection<Kasa> Kasalar { get; set; }
+    //nav prop Makbuz
+    public ICollection<Makbuz> Makbuzlar { get; set; }
 }

@@ -7,4 +7,6 @@ public class Donem:FullAuditedAggregateRoot<Guid>
     public bool Durum { get; set; }
     //nav prop Fatura
     public ICollection<Fatura> Faturalar { get; set; }
+    //nav prop Makbuz
+    public ICollection<Makbuz> Makbuzlar { get; set; }
 }

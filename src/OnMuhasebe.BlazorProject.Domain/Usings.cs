@@ -14,3 +14,4 @@ global using OnMuhasebe.BlazorProject.Donemler;
 global using OnMuhasebe.BlazorProject.Faturalar;
 global using OnMuhasebe.BlazorProject.Hizmetler;
 global using OnMuhasebe.BlazorProject.Kasalar;
+global using OnMuhasebe.BlazorProject.Makbuzlar;
