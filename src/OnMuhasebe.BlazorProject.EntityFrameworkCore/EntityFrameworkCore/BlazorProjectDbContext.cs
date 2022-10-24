@@ -117,5 +117,6 @@ public class BlazorProjectDbContext :
         builder.ConfigureBirim();
         builder.ConfigureCari();
         builder.ConfigureDepo();
+        builder.ConfigureDonem();
     }
 }

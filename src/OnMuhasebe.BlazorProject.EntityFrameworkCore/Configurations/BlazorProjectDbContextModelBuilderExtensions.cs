@@ -7,6 +7,7 @@ using OnMuhasebe.BlazorProject.Birimler;
 using OnMuhasebe.BlazorProject.Cariler;
 using OnMuhasebe.BlazorProject.Consts;
 using OnMuhasebe.BlazorProject.Depolar;
+using OnMuhasebe.BlazorProject.Donemler;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 
 namespace OnMuhasebe.BlazorProject.Configurations;
@@ -302,6 +303,33 @@ public static class BlazorProjectDbContextModelBuilderExtensions
             b.HasOne(x => x.Sube)
                 .WithMany(x => x.Depolar)
                 .OnDelete(DeleteBehavior.NoAction);
+        });
+    }
+    public static void ConfigureDonem(this ModelBuilder builder)
+    {
+        builder.Entity<Donem>(b =>
+        {
+            b.ToTable(BlazorProjectConsts.DbTablePrefix + "Donemler", BlazorProjectConsts.DbSchema);
+            b.ConfigureByConvention();
+
+            //properties->
+            b.Property(x => x.Kod)
+                .IsRequired()
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(EntityConsts.MaxKodLength);
+            b.Property(x => x.Ad)
+                .IsRequired()
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(EntityConsts.MaxAdLength);
+            b.Property(x => x.Aciklama)
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(EntityConsts.MaxAciklamaLength);
+            b.Property(x => x.Durum)
+                .HasColumnType(SqlDbType.Bit.ToString());
+            //indexes->
+            b.HasIndex(x => x.Kod);
+            //relations->
+            //burada bire-çok olan ilişkileri tanımlıyoruz. bu sınıfta çoka-bir olan ilişkiler olduğu için herhangi bir tanımlama yapmıyoruz çünkü bire-çok olan ilişkilerin tersini otamatik olarak algılıyor sistem.
         });
     }
 
