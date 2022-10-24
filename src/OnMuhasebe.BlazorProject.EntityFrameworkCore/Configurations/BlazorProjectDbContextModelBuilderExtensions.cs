@@ -10,6 +10,7 @@ using OnMuhasebe.BlazorProject.Depolar;
 using OnMuhasebe.BlazorProject.Donemler;
 using OnMuhasebe.BlazorProject.Faturalar;
 using OnMuhasebe.BlazorProject.Hizmetler;
+using OnMuhasebe.BlazorProject.Kasalar;
 using OnMuhasebe.BlazorProject.Parametreler;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 
@@ -675,6 +676,58 @@ public static class BlazorProjectDbContextModelBuilderExtensions
 
             b.HasOne(x => x.OzelKod2)
                 .WithMany(x => x.OzelKod2Hizmetler)
+                .OnDelete(DeleteBehavior.NoAction);
+        });
+    }
+    public static void ConfigureKasa(this ModelBuilder builder)
+    {
+        builder.Entity<Kasa>(b =>
+        {
+            b.ToTable(BlazorProjectConsts.DbTablePrefix + "Kasalar", BlazorProjectConsts.DbSchema);
+            b.ConfigureByConvention();
+
+            //properties->
+            b.Property(x => x.Kod)
+                .IsRequired()
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(EntityConsts.MaxKodLength);
+
+            b.Property(x => x.Ad)
+                .IsRequired()
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(EntityConsts.MaxAdLength);
+
+            b.Property(x => x.OzelKod1)
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+
+            b.Property(x => x.OzelKod2)
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+
+            b.Property(x => x.Sube)
+                .IsRequired()
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+
+            b.Property(x => x.Aciklama)
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(EntityConsts.MaxAciklamaLength);
+                
+            b.Property(x => x.Durum)
+                .HasColumnType(SqlDbType.Bit.ToString());
+            
+            //indexes->
+            b.HasIndex(x => x.Kod);
+            
+            //relations->
+            b.HasOne(x => x.OzelKod1)
+                .WithMany(x => x.OzelKod1Kasalar)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            b.HasOne(x => x.OzelKod2)
+                .WithMany(x => x.OzelKod2Kasalar)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            b.HasOne(x => x.Sube)
+                .WithMany(x => x.Kasalar)
                 .OnDelete(DeleteBehavior.NoAction);
         });
     }
