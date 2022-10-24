@@ -13,6 +13,7 @@ using OnMuhasebe.BlazorProject.Hizmetler;
 using OnMuhasebe.BlazorProject.Kasalar;
 using OnMuhasebe.BlazorProject.MakbuzHareketler;
 using OnMuhasebe.BlazorProject.Makbuzlar;
+using OnMuhasebe.BlazorProject.Masraflar;
 using OnMuhasebe.BlazorProject.Parametreler;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 
@@ -930,6 +931,69 @@ public static class BlazorProjectDbContextModelBuilderExtensions
 
             b.HasOne(x => x.BankaHesap)
                 .WithMany(x => x.MakbuzHareketler)
+                .OnDelete(DeleteBehavior.NoAction);
+        });
+    }
+    public static void ConfigureMasraf(this ModelBuilder builder)
+    {
+        builder.Entity<Masraf>(b =>
+        {
+            b.ToTable(BlazorProjectConsts.DbTablePrefix + "Masraflar", BlazorProjectConsts.DbSchema);
+            b.ConfigureByConvention();
+
+            //properties->
+            b.Property(x => x.Kod)
+                .IsRequired()
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(EntityConsts.MaxKodLength);
+
+            b.Property(x => x.Ad)
+                .IsRequired()
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(EntityConsts.MaxAdLength);
+
+            b.Property(x => x.KdvOrani)
+                .IsRequired()
+                .HasColumnType(SqlDbType.Int.ToString());
+
+            b.Property(x => x.BirimFiyat)
+                .IsRequired()
+                .HasColumnType(SqlDbType.Money.ToString());
+
+            b.Property(x => x.Barkod)
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(EntityConsts.MaxBarkodLength);
+
+            b.Property(x => x.BirimId)
+                .IsRequired()
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+
+            b.Property(x => x.OzelKod1)
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+
+            b.Property(x => x.OzelKod2)
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+
+            b.Property(x => x.Aciklama)
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(EntityConsts.MaxAciklamaLength);
+
+            b.Property(x => x.Durum)
+                .HasColumnType(SqlDbType.Bit.ToString());
+
+            //indexes->
+            b.HasIndex(x => x.Kod);
+
+            //relations->
+            b.HasOne(x => x.Birim)
+                .WithMany(x => x.Masraflar)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            b.HasOne(x => x.OzelKod1)
+                .WithMany(x => x.OzelKod1Masraflar)
+                .OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.OzelKod2)
+                .WithMany(x => x.OzelKod2Masraflar)
                 .OnDelete(DeleteBehavior.NoAction);
         });
     }
