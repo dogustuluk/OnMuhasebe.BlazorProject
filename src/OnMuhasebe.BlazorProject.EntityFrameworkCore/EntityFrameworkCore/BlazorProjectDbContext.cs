@@ -123,5 +123,6 @@ public class BlazorProjectDbContext :
         builder.ConfigureFirmaParametre();
         builder.ConfigureHizmet();
         builder.ConfigureKasa();
+        builder.ConfigureMakbuz();
     }
 }

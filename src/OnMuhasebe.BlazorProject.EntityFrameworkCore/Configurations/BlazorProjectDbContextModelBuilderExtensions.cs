@@ -11,6 +11,7 @@ using OnMuhasebe.BlazorProject.Donemler;
 using OnMuhasebe.BlazorProject.Faturalar;
 using OnMuhasebe.BlazorProject.Hizmetler;
 using OnMuhasebe.BlazorProject.Kasalar;
+using OnMuhasebe.BlazorProject.Makbuzlar;
 using OnMuhasebe.BlazorProject.Parametreler;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 
@@ -728,6 +729,114 @@ public static class BlazorProjectDbContextModelBuilderExtensions
 
             b.HasOne(x => x.Sube)
                 .WithMany(x => x.Kasalar)
+                .OnDelete(DeleteBehavior.NoAction);
+        });
+    }
+    public static void ConfigureMakbuz(this ModelBuilder builder)
+    {
+        builder.Entity<Makbuz>(b =>
+        {
+            b.ToTable(BlazorProjectConsts.DbTablePrefix + "Makbuzlar", BlazorProjectConsts.DbSchema);
+            b.ConfigureByConvention();
+
+            //properties->
+            b.Property(x => x.MakbuzTuru)
+                .IsRequired()
+                .HasColumnType(SqlDbType.TinyInt.ToString());
+
+            b.Property(x => x.MakbuzNo)
+                .IsRequired()
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(MakbuzConsts.MaxMakbuzNoLength);
+
+            b.Property(x => x.Tarih)
+                .IsRequired()
+                .HasColumnType(SqlDbType.Date.ToString());
+
+            b.Property(x => x.CariId)
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+
+            b.Property(x => x.KasaId)
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+
+            b.Property(x => x.BankaHesapId)
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+
+            b.Property(x => x.HareketSayisi)
+                .IsRequired()
+                .HasColumnType(SqlDbType.Int.ToString());
+
+            b.Property(x => x.CekToplam)
+                .IsRequired()
+                .HasColumnType(SqlDbType.Money.ToString());
+
+            b.Property(x => x.SenetToplam)
+                .IsRequired()
+                .HasColumnType(SqlDbType.Money.ToString());
+
+            b.Property(x => x.PosToplam)
+                .IsRequired()
+                .HasColumnType(SqlDbType.Money.ToString());
+
+            b.Property(x => x.NakitToplam)
+                .IsRequired()
+                .HasColumnType(SqlDbType.Money.ToString());
+
+            b.Property(x => x.BankaToplam)
+                .IsRequired()
+                .HasColumnType(SqlDbType.Money.ToString());
+
+            b.Property(x => x.OzelKod1)
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+            
+            b.Property(x => x.OzelKod2)
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+
+            b.Property(x => x.SubeId)
+                .IsRequired()
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+
+            b.Property(x => x.DonemId)
+                .IsRequired()
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+
+            b.Property(x => x.Aciklama)
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(EntityConsts.MaxAciklamaLength);
+
+            b.Property(x => x.Durum)
+                .HasColumnType(SqlDbType.Bit.ToString());
+
+            //indexes->
+            b.HasIndex(x => x.MakbuzNo);
+
+            //relations->
+            b.HasOne(x => x.Cari)
+                .WithMany(x => x.Makbuzlar)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            b.HasOne(x => x.Kasa)
+                .WithMany(x => x.Makbuzlar)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            b.HasOne(x => x.BankaHesap)
+                .WithMany(x => x.Makbuzlar)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            b.HasOne(x => x.OzelKod1)
+                .WithMany(x => x.OzelKod1Makbuzlar)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            b.HasOne(x => x.OzelKod2)
+                .WithMany(x => x.OzelKod2Makbuzlar)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            b.HasOne(x => x.Sube)
+             .WithMany(x => x.Makbuzlar)
+             .OnDelete(DeleteBehavior.NoAction);
+
+            b.HasOne(x => x.Donem)
+                .WithMany(x => x.Makbuzlar)
                 .OnDelete(DeleteBehavior.NoAction);
         });
     }
