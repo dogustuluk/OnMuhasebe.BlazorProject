@@ -114,5 +114,6 @@ public class BlazorProjectDbContext :
         builder.ConfigureBanka();
         builder.ConfigureBankaSube();
         builder.ConfigureBankaHesap();
+        builder.ConfigureBirim();
     }
 }
