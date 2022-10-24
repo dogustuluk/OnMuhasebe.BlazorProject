@@ -128,5 +128,6 @@ public class BlazorProjectDbContext :
         builder.ConfigureMasraf();
         builder.ConfigureOzelKod();
         builder.ConfigureStok();
+        builder.ConfigureSube();
     }
 }

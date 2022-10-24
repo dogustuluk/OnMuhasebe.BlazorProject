@@ -17,6 +17,7 @@ using OnMuhasebe.BlazorProject.Masraflar;
 using OnMuhasebe.BlazorProject.OzelKodlar;
 using OnMuhasebe.BlazorProject.Parametreler;
 using OnMuhasebe.BlazorProject.Stoklar;
+using OnMuhasebe.BlazorProject.Subeler;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 
 namespace OnMuhasebe.BlazorProject.Configurations;
@@ -1100,6 +1101,37 @@ public static class BlazorProjectDbContextModelBuilderExtensions
                 .WithMany(x => x.OzelKod2Stoklar)
                 .OnDelete(DeleteBehavior.NoAction);
 
+        });
+    }
+    public static void ConfigureSube(this ModelBuilder builder)
+    {
+        builder.Entity<Sube>(b =>
+        {
+            b.ToTable(BlazorProjectConsts.DbTablePrefix + "Subeler", BlazorProjectConsts.DbSchema);
+            b.ConfigureByConvention();
+
+            //properties->
+            b.Property(x => x.Kod)
+                .IsRequired()
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(EntityConsts.MaxKodLength);
+            
+            b.Property(x => x.Ad)
+                .IsRequired()
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(EntityConsts.MaxAdLength);
+            
+            b.Property(x => x.Aciklama)
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(EntityConsts.MaxAciklamaLength);
+
+            b.Property(x => x.Durum)
+                .HasColumnType(SqlDbType.Bit.ToString());
+
+            //indexes->
+            b.HasIndex(x => x.Kod);
+
+            //relations->
         });
     }
 
