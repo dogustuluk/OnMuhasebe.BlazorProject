@@ -118,5 +118,6 @@ public class BlazorProjectDbContext :
         builder.ConfigureCari();
         builder.ConfigureDepo();
         builder.ConfigureDonem();
+        builder.ConfigureFatura();
     }
 }

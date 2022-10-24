@@ -8,6 +8,7 @@ using OnMuhasebe.BlazorProject.Cariler;
 using OnMuhasebe.BlazorProject.Consts;
 using OnMuhasebe.BlazorProject.Depolar;
 using OnMuhasebe.BlazorProject.Donemler;
+using OnMuhasebe.BlazorProject.Faturalar;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 
 namespace OnMuhasebe.BlazorProject.Configurations;
@@ -330,6 +331,80 @@ public static class BlazorProjectDbContextModelBuilderExtensions
             b.HasIndex(x => x.Kod);
             //relations->
             //burada bire-çok olan ilişkileri tanımlıyoruz. bu sınıfta çoka-bir olan ilişkiler olduğu için herhangi bir tanımlama yapmıyoruz çünkü bire-çok olan ilişkilerin tersini otamatik olarak algılıyor sistem.
+        });
+    }
+    public static void ConfigureFatura(this ModelBuilder builder)
+    {
+        builder.Entity<Fatura>(b =>
+        {
+            b.ToTable(BlazorProjectConsts.DbTablePrefix + "Faturalar", BlazorProjectConsts.DbSchema);
+            b.ConfigureByConvention();
+
+            //properties->
+            b.Property(x => x.FaturaTuru)
+                .IsRequired()
+                .HasColumnType(SqlDbType.TinyInt.ToString());
+            b.Property(x => x.FaturaNo)
+                .IsRequired()
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(FaturaConsts.MaxFaturaNoLength);
+            b.Property(x => x.Tarih)
+                .IsRequired()
+                .HasColumnType(SqlDbType.Date.ToString());
+            b.Property(x => x.BrutTutar)
+                .IsRequired()
+                .HasColumnType(SqlDbType.Money.ToString());
+            b.Property(x => x.IndirimTutar)
+                .IsRequired()
+                .HasColumnType(SqlDbType.Money.ToString());
+            b.Property(x => x.KdvHaricTutar)
+                .IsRequired()
+                .HasColumnType(SqlDbType.Money.ToString());
+            b.Property(x => x.KdvTutar)
+                .IsRequired()
+                .HasColumnType(SqlDbType.Money.ToString());
+            b.Property(x => x.NetTutar)
+                .IsRequired()
+                .HasColumnType(SqlDbType.Money.ToString());
+            b.Property(x => x.HareketSayisi)
+                .IsRequired()
+                .HasColumnType(SqlDbType.Int.ToString());
+            b.Property(x => x.CariId)
+                .IsRequired()
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+            b.Property(x => x.OzelKod1Id)
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+            b.Property(x => x.OzelKod2Id)
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+            b.Property(x => x.SubeId)
+                .IsRequired()
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+            b.Property(x => x.DonemId)
+                .IsRequired()
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+            b.Property(x => x.Aciklama)
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(EntityConsts.MaxAciklamaLength);
+            b.Property(x => x.Durum)
+                .HasColumnType(SqlDbType.Bit.ToString());
+            //indexes->
+            b.HasIndex(x => x.FaturaNo);
+            //relations->
+            b.HasOne(x => x.Cari)
+                .WithMany(x => x.Faturalar)
+                .OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.OzelKod1)
+                .WithMany(x => x.OzelKod1Faturalar)
+                .OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.OzelKod2)
+                .WithMany(x => x.OzelKod2Faturalar)
+                .OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Sube)
+                .WithMany(x => x.Faturalar)
+                .OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Donem)
+                .WithMany(x => x.Faturalar)
+                .OnDelete(DeleteBehavior.NoAction);
         });
     }
 
