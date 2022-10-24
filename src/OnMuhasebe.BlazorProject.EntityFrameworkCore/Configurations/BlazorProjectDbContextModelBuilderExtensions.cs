@@ -407,6 +407,89 @@ public static class BlazorProjectDbContextModelBuilderExtensions
                 .OnDelete(DeleteBehavior.NoAction);
         });
     }
+    public static void ConfigureFaturaHareket(this ModelBuilder builder)
+    {
+        builder.Entity<FaturaHareket>(b =>
+        {
+            b.ToTable(BlazorProjectConsts.DbTablePrefix + "FaturaHareketler", BlazorProjectConsts.DbSchema);
+            b.ConfigureByConvention();
+
+            //properties->
+            b.Property(x => x.FaturaId)
+                .IsRequired()
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+            
+            b.Property(x => x.HareketTuru)
+                .IsRequired()
+                .HasColumnType(SqlDbType.TinyInt.ToString());
+            
+            b.Property(x => x.StokId)
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+            
+            b.Property(x => x.HizmetId)
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+            
+            b.Property(x => x.MasrafId)
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+            
+            b.Property(x => x.DepoId)
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+            
+            b.Property(x => x.Miktar)
+                .IsRequired()
+                .HasColumnType(SqlDbType.Money.ToString());
+            
+            b.Property(x => x.BirimFiyat)
+                .IsRequired()
+                .HasColumnType(SqlDbType.Money.ToString());
+            
+            b.Property(x => x.BrutTutar)
+                .IsRequired()
+                .HasColumnType(SqlDbType.Money.ToString());
+            
+            b.Property(x => x.IndirimTutar)
+                .IsRequired()
+                .HasColumnType(SqlDbType.Money.ToString());
+            
+            b.Property(x => x.KdvOrani)
+                .IsRequired()
+                .HasColumnType(SqlDbType.Int.ToString());
+            
+            b.Property(x => x.KdvHaricTutar)
+                .IsRequired()
+                .HasColumnType(SqlDbType.Money.ToString());
+            
+            b.Property(x => x.KdvTutar)
+                .IsRequired()
+                .HasColumnType(SqlDbType.Money.ToString());
+            
+            b.Property(x => x.NetTutar)
+                .IsRequired()
+                .HasColumnType(SqlDbType.Money.ToString());
+
+            b.Property(x => x.Aciklama)
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(EntityConsts.MaxAciklamaLength);
+            //indexes->
+
+            //relations->
+            b.HasOne(x => x.Fatura)
+                .WithMany(x => x.FaturaHareketler)
+                .OnDelete(DeleteBehavior.Cascade);
+            b.HasOne(x => x.Stok)
+                .WithMany(x => x.FaturaHareketler)
+                .OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Hizmet)
+                .WithMany(x => x.FaturaHareketler)
+                .OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Masraf)
+                .WithMany(x => x.FaturaHareketler)
+                .OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Depo)
+                .WithMany(x => x.FaturaHareketler)
+                .OnDelete(DeleteBehavior.NoAction);
+        });
+    }
 
 
 }

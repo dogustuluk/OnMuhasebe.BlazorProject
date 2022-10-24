@@ -119,5 +119,6 @@ public class BlazorProjectDbContext :
         builder.ConfigureDepo();
         builder.ConfigureDonem();
         builder.ConfigureFatura();
+        builder.ConfigureFaturaHareket();
     }
 }
