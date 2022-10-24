@@ -121,5 +121,6 @@ public class BlazorProjectDbContext :
         builder.ConfigureFatura();
         builder.ConfigureFaturaHareket();
         builder.ConfigureFirmaParametre();
+        builder.ConfigureHizmet();
     }
 }
