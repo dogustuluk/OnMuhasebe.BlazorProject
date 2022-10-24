@@ -6,6 +6,7 @@ using OnMuhasebe.BlazorProject.BankaSubeler;
 using OnMuhasebe.BlazorProject.Birimler;
 using OnMuhasebe.BlazorProject.Cariler;
 using OnMuhasebe.BlazorProject.Consts;
+using OnMuhasebe.BlazorProject.Depolar;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 
 namespace OnMuhasebe.BlazorProject.Configurations;
@@ -258,6 +259,48 @@ public static class BlazorProjectDbContextModelBuilderExtensions
                 .OnDelete(DeleteBehavior.NoAction);
             b.HasOne(x => x.OzelKod2)
                 .WithMany(x => x.OzelKod2Cariler)
+                .OnDelete(DeleteBehavior.NoAction);
+        });
+    }
+    public static void ConfigureDepo(this ModelBuilder builder)
+    {
+        builder.Entity<Depo>(b =>
+        {
+            b.ToTable(BlazorProjectConsts.DbTablePrefix + "Depolar", BlazorProjectConsts.DbSchema);
+            b.ConfigureByConvention();
+
+            //properties->
+            b.Property(x => x.Kod)
+                .IsRequired()
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(EntityConsts.MaxKodLength);
+            b.Property(x => x.Ad)
+                .IsRequired()
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(EntityConsts.MaxAdLength);
+            b.Property(x => x.OzelKod1)
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+            b.Property(x => x.OzelKod2)
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+            b.Property(x => x.Sube)
+                .IsRequired()
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+            b.Property(x => x.Aciklama)
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(EntityConsts.MaxAciklamaLength);
+            b.Property(x => x.Durum)
+                .HasColumnType(SqlDbType.Bit.ToString());
+            //indexes->
+            b.HasIndex(x => x.Kod);
+            //relations->
+            b.HasOne(x => x.OzelKod1)
+                .WithMany(x => x.OzelKod1Depolar)
+                .OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.OzelKod2)
+                .WithMany(x => x.OzelKod2Depolar)
+                .OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Sube)
+                .WithMany(x => x.Depolar)
                 .OnDelete(DeleteBehavior.NoAction);
         });
     }
