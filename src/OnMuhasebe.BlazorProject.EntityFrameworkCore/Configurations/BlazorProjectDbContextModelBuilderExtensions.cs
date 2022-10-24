@@ -11,6 +11,7 @@ using OnMuhasebe.BlazorProject.Donemler;
 using OnMuhasebe.BlazorProject.Faturalar;
 using OnMuhasebe.BlazorProject.Hizmetler;
 using OnMuhasebe.BlazorProject.Kasalar;
+using OnMuhasebe.BlazorProject.MakbuzHareketler;
 using OnMuhasebe.BlazorProject.Makbuzlar;
 using OnMuhasebe.BlazorProject.Parametreler;
 using Volo.Abp.EntityFrameworkCore.Modeling;
@@ -837,6 +838,98 @@ public static class BlazorProjectDbContextModelBuilderExtensions
 
             b.HasOne(x => x.Donem)
                 .WithMany(x => x.Makbuzlar)
+                .OnDelete(DeleteBehavior.NoAction);
+        });
+    }
+    public static void ConfigureMakbuzHareket(this ModelBuilder builder)
+    {
+        builder.Entity<MakbuzHareket>(b =>
+        {
+            b.ToTable(BlazorProjectConsts.DbTablePrefix + "MakbuzHareketler", BlazorProjectConsts.DbSchema);
+            b.ConfigureByConvention();
+
+            //properties->
+            b.Property(x => x.MakbuzId)
+                .IsRequired()
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+
+            b.Property(x => x.OdemeTuru)
+                .IsRequired()
+                .HasColumnType(SqlDbType.TinyInt.ToString());
+
+            b.Property(x => x.TakipNo)
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(MakbuzHareketConsts.MaxTakipNoLength);
+
+            b.Property(x => x.CekBankaId)
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+
+            b.Property(x => x.CekBankaSubeId)
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+
+            b.Property(x => x.CekHesapNo)
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(MakbuzHareketConsts.MaxCekHesapNoLength);
+
+            b.Property(x => x.BelgeNo)
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(MakbuzHareketConsts.MaxBelgeNoLength);
+
+            b.Property(x => x.Vade)
+                .IsRequired()
+                .HasColumnType(SqlDbType.Date.ToString());
+
+            b.Property(x => x.AsilBorclu)
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(MakbuzHareketConsts.MaxAsilBorcluLength);
+
+            b.Property(x => x.Ciranta)
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(MakbuzHareketConsts.MaxCirantaLength);
+
+            b.Property(x => x.KasaId)
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+
+            b.Property(x => x.BankaHesapId)
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+
+            b.Property(x => x.Tutar)
+                .IsRequired()
+                .HasColumnType(SqlDbType.Money.ToString());
+
+            b.Property(x => x.BelgeDurumu)
+                .IsRequired()
+                .HasColumnType(SqlDbType.TinyInt.ToString());
+
+            b.Property(x => x.KendiBelgemiz)
+                .HasColumnType(SqlDbType.Bit.ToString());
+
+            b.Property(x => x.Aciklama)
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(EntityConsts.MaxAciklamaLength);
+
+            //indexes->
+            b.HasIndex(x => x.TakipNo);
+
+            //relations->
+            b.HasOne(x => x.Makbuz)
+                .WithMany(x => x.MakbuzHareketler)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            b.HasOne(x => x.CekBanka)
+                .WithMany(x => x.MakbuzHareketler)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            b.HasOne(x => x.CekBankaSube)
+                .WithMany(x => x.MakbuzHareketler)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            b.HasOne(x => x.Kasa)
+                .WithMany(x => x.MakbuzHareketler)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            b.HasOne(x => x.BankaHesap)
+                .WithMany(x => x.MakbuzHareketler)
                 .OnDelete(DeleteBehavior.NoAction);
         });
     }

@@ -124,5 +124,6 @@ public class BlazorProjectDbContext :
         builder.ConfigureHizmet();
         builder.ConfigureKasa();
         builder.ConfigureMakbuz();
+        builder.ConfigureMakbuzHareket();
     }
 }
