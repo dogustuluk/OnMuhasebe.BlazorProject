@@ -55,10 +55,10 @@ public static class BlazorProjectDbContextModelBuilderExtensions
                 .HasColumnType(SqlDbType.VarChar.ToString())
                 .HasMaxLength(EntityConsts.MaxAdLength);
 
-            b.Property(x => x.OzelKod1)
+            b.Property(x => x.OzelKod1Id)
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
 
-            b.Property(x => x.OzelKod2)
+            b.Property(x => x.OzelKod2Id)
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
 
             b.Property(x => x.Aciklama)
@@ -104,10 +104,10 @@ public static class BlazorProjectDbContextModelBuilderExtensions
                 .IsRequired()//yapmaya gerek yoktur.entity sınıfında zaten zorunlu olduğunu belirttik.
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
 
-            b.Property(x => x.OzelKod1)
+            b.Property(x => x.OzelKod1Id)
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
 
-            b.Property(x => x.OzelKod2)
+            b.Property(x => x.OzelKod2Id)
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
 
             b.Property(x => x.Aciklama)
@@ -169,10 +169,10 @@ public static class BlazorProjectDbContextModelBuilderExtensions
                 .IsRequired()
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
           
-            b.Property(x => x.OzelKod1)
+            b.Property(x => x.OzelKod1Id)
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
            
-            b.Property(x => x.OzelKod2)
+            b.Property(x => x.OzelKod2Id)
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
            
             b.Property(x => x.SubeId)
@@ -226,10 +226,10 @@ public static class BlazorProjectDbContextModelBuilderExtensions
                 .HasColumnType(SqlDbType.VarChar.ToString())
                 .HasMaxLength(EntityConsts.MaxAdLength);
           
-            b.Property(x => x.OzelKod1)
+            b.Property(x => x.OzelKod1Id)
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
           
-            b.Property(x => x.OzelKod2)
+            b.Property(x => x.OzelKod2Id)
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
          
             b.Property(x => x.Aciklama)
@@ -286,10 +286,10 @@ public static class BlazorProjectDbContextModelBuilderExtensions
                 .HasColumnType(SqlDbType.VarChar.ToString())
                 .HasMaxLength(EntityConsts.MaxAdresLength);
       
-            b.Property(x => x.OzelKod1)
+            b.Property(x => x.OzelKod1Id)
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
      
-            b.Property(x => x.OzelKod2)
+            b.Property(x => x.OzelKod2Id)
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
      
             b.Property(x => x.Aciklama)
@@ -330,13 +330,13 @@ public static class BlazorProjectDbContextModelBuilderExtensions
                 .HasColumnType(SqlDbType.VarChar.ToString())
                 .HasMaxLength(EntityConsts.MaxAdLength);
       
-            b.Property(x => x.OzelKod1)
+            b.Property(x => x.OzelKod1Id)
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
        
-            b.Property(x => x.OzelKod2)
+            b.Property(x => x.OzelKod2Id)
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
         
-            b.Property(x => x.Sube)
+            b.Property(x => x.SubeId)
                 .IsRequired()
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
          
@@ -656,10 +656,10 @@ public static class BlazorProjectDbContextModelBuilderExtensions
                 .IsRequired()
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
 
-            b.Property(x => x.OzelKod1)
+            b.Property(x => x.OzelKod1Id)
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
 
-            b.Property(x => x.OzelKod2)
+            b.Property(x => x.OzelKod2Id)
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
 
             b.Property(x => x.Aciklama)
@@ -703,13 +703,13 @@ public static class BlazorProjectDbContextModelBuilderExtensions
                 .HasColumnType(SqlDbType.VarChar.ToString())
                 .HasMaxLength(EntityConsts.MaxAdLength);
 
-            b.Property(x => x.OzelKod1)
+            b.Property(x => x.OzelKod1Id)
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
 
-            b.Property(x => x.OzelKod2)
+            b.Property(x => x.OzelKod2Id)
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
 
-            b.Property(x => x.Sube)
+            b.Property(x => x.SubeId)
                 .IsRequired()
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
 
@@ -791,10 +791,10 @@ public static class BlazorProjectDbContextModelBuilderExtensions
                 .IsRequired()
                 .HasColumnType(SqlDbType.Money.ToString());
 
-            b.Property(x => x.OzelKod1)
+            b.Property(x => x.OzelKod1Id)
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
             
-            b.Property(x => x.OzelKod2)
+            b.Property(x => x.OzelKod2Id)
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
 
             b.Property(x => x.SubeId)
@@ -971,10 +971,10 @@ public static class BlazorProjectDbContextModelBuilderExtensions
                 .IsRequired()
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
 
-            b.Property(x => x.OzelKod1)
+            b.Property(x => x.OzelKod1Id)
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
 
-            b.Property(x => x.OzelKod2)
+            b.Property(x => x.OzelKod2Id)
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
 
             b.Property(x => x.Aciklama)
@@ -1073,10 +1073,10 @@ public static class BlazorProjectDbContextModelBuilderExtensions
                 .IsRequired()
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
 
-            b.Property(x => x.OzelKod1)
+            b.Property(x => x.OzelKod1Id)
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
             
-            b.Property(x => x.OzelKod2)
+            b.Property(x => x.OzelKod2Id)
                 .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
 
             b.Property(x => x.Aciklama)
