@@ -126,5 +126,6 @@ public class BlazorProjectDbContext :
         builder.ConfigureMakbuz();
         builder.ConfigureMakbuzHareket();
         builder.ConfigureMasraf();
+        builder.ConfigureOzelKod();
     }
 }

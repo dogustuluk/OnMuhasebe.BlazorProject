@@ -14,6 +14,7 @@ using OnMuhasebe.BlazorProject.Kasalar;
 using OnMuhasebe.BlazorProject.MakbuzHareketler;
 using OnMuhasebe.BlazorProject.Makbuzlar;
 using OnMuhasebe.BlazorProject.Masraflar;
+using OnMuhasebe.BlazorProject.OzelKodlar;
 using OnMuhasebe.BlazorProject.Parametreler;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 
@@ -995,6 +996,45 @@ public static class BlazorProjectDbContextModelBuilderExtensions
             b.HasOne(x => x.OzelKod2)
                 .WithMany(x => x.OzelKod2Masraflar)
                 .OnDelete(DeleteBehavior.NoAction);
+        });
+    }
+    public static void ConfigureOzelKod(this ModelBuilder builder)
+    {
+        builder.Entity<OzelKod>(b =>
+        {
+            b.ToTable(BlazorProjectConsts.DbTablePrefix + "OzelKodlar", BlazorProjectConsts.DbSchema);
+            b.ConfigureByConvention();
+
+            //properties->
+            b.Property(x => x.Kod)
+                .IsRequired()
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(EntityConsts.MaxKodLength);
+
+            b.Property(x => x.Ad)
+                .IsRequired()
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(EntityConsts.MaxAdLength);
+
+            b.Property(x => x.KodTuru)
+                .IsRequired()
+                .HasColumnType(SqlDbType.TinyInt.ToString());
+
+            b.Property(x => x.KartTuru)
+                .IsRequired()
+                .HasColumnType(SqlDbType.TinyInt.ToString());
+
+            b.Property(x => x.Aciklama)
+                .HasColumnType(SqlDbType.VarChar.ToString())
+                .HasMaxLength(EntityConsts.MaxAciklamaLength);
+
+            b.Property(x => x.Durum)
+                .HasColumnType(SqlDbType.Bit.ToString());
+
+            //indexes->
+            b.HasIndex(x => x.Kod);
+
+            //relations->
         });
     }
 
