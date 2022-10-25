@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 using OnMuhasebe.BlazorProject.Commons;
 
 namespace OnMuhasebe.BlazorProject.BankaSubeler;
-public interface IBankaSubeRepository : ICommonRepository<Banka>
+public interface IBankaSubeRepository : ICommonRepository<BankaSube>
 {
 }
