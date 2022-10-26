@@ -8,8 +8,7 @@ public class BankaHesap:FullAuditedAggregateRoot<Guid>
     public string HesapNo { get; set; }
     public string IbanNo { get; set; }
     public string Aciklama { get; set; }
-    //Relation'lar
-    /*
+    /*Relation'lar
      * direkt bankada şube açılamaycağı için bir bankanın şübesinde hesap açılacağı için bir bankanın şubesi olacak. banka hesap ile banka şube id arasında ilişki olacak.
      * özel kod alanları -> sebebi uygulamaya esneklik katması. Kullanıcılar farklı özellikler kaydetmek isteyebilirler bu entity'ler ile ilgili.buna özgü sorgular yapmak isteyebilirler.
      * SubeId -> her banka hesabı bir firmanın şubesine aittir, olmak zorundadır.
