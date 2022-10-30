@@ -12,14 +12,19 @@ public class BankaAppService : BlazorProjectAppService, IBankaAppService
      * entity'lerimizin navigation property'lerine karşılık gelir.
      */
     private readonly IBankaRepository _bankaRepository;
-
-    public BankaAppService(IBankaRepository bankaRepository)
+    private readonly BankaManager _bankaManager;
+    public BankaAppService(IBankaRepository bankaRepository, BankaManager bankaManager)
     {
         _bankaRepository = bankaRepository;
+        _bankaManager = bankaManager;
     }
-
+    /// <summary>
+    /// <para>Banka nesnesini oluşturmak için kullanılan metot. burada üç adet kontrol yapılmaktadır; aynı kodun kullanılması, OzelKod1Id database'de olup olmadığı ve OzelKod2Id'nin var olup olmadığı</para>
+    /// </summary>
     public virtual async Task<SelectBankaDto> CreateAsync(CreateBankaDto input)
     {
+        await _bankaManager.CheckCreateAsync(input.Kod, input.OzelKod1Id, input.OzelKod2Id);
+
         var entity = ObjectMapper.Map<CreateBankaDto, Banka>(input);
         await _bankaRepository.InsertAsync(entity);
         //database'de create olan entity'i alıp tekrar map edip geri göndermemiz gerekiyor.
@@ -31,6 +36,8 @@ public class BankaAppService : BlazorProjectAppService, IBankaAppService
     /// </summary>
     public virtual async Task DeleteAsync(Guid id)
     {
+        await _bankaManager.CheckDeleteAsync(id);
+
         await _bankaRepository.DeleteAsync(id);
     }
     /// <summary>
@@ -89,6 +96,9 @@ public class BankaAppService : BlazorProjectAppService, IBankaAppService
         #endregion
 
         var entity = await _bankaRepository.GetAsync(id, b => b.Id == id);
+
+        await _bankaManager.CheckUpdateAsync(id,input.Kod,entity,input.OzelKod1Id,input.OzelKod2Id);
+
         var mappedEntity = ObjectMapper.Map(input, entity);
         await _bankaRepository.UpdateAsync(mappedEntity);
 
