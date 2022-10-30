@@ -112,6 +112,12 @@ public class EfCoreCommonRepository<TEntity> : EfCoreRepository<BlazorProjectDbC
             .Take(maxResultCount)
             .ToListAsync();
     }
+    /// <summary>
+    /// <para>Banka'nın Kod property'sinin otomatik olarak artması için kullanılan metot.</para>
+    /// </summary>
+    /// <param name="propertySelector"></param>
+    /// <param name="predicate"></param>
+    /// <returns></returns>
     public async Task<string> GetCodeAsync(Expression<Func<TEntity, string>> propertySelector, Expression<Func<TEntity, bool>> predicate = null)
     {
         static string CreateNewCode(string code)
@@ -133,7 +139,7 @@ public class EfCoreCommonRepository<TEntity> : EfCoreRepository<BlazorProjectDbC
                 difference = 0;
 
             var newCode = code.Substring(0, difference);//Artık elimizde Cari- kısmı var.
-            newCode += number;//newCode'dan döneni aldı ve yeni oluşturulan sayıyı ekledi.
+            newCode += newNumber;//newCode'dan döneni aldı ve yeni oluşturulan sayıyı ekledi.
              
             return newCode;
         }

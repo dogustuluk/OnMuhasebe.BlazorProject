@@ -52,7 +52,7 @@ public class BlazorProjectDomainSharedModule : AbpModule
 
         Configure<AbpExceptionLocalizationOptions>(options =>
         {
-            options.MapCodeNamespace("BlazorProject", typeof(BlazorProjectResource));
+            options.MapCodeNamespace("Exception", typeof(BlazorProjectResource));
         });
     }
 }
