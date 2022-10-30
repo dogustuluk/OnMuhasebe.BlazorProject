@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using OnMuhasebe.BlazorProject.CommonDtos;
 using Volo.Abp.Application.Dtos;
@@ -35,10 +33,16 @@ public class BankaAppService : BlazorProjectAppService, IBankaAppService
     {
         await _bankaRepository.DeleteAsync(id);
     }
-
+    /// <summary>
+    /// belirli bir Banka'yı çekmek için kullanılır.
+    /// <para>b.id ile parametreden gelen id eşleşir.</para>
+    /// <para>b.OzelKod1 ve b.OzelKod2 ile navigation property eşleştirilir. Bu sayede Banka verisi çekilirken özel kod adları da alınır.</para>
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public virtual async Task<SelectBankaDto> GetAsync(Guid id)
     {
-        var entity = await _bankaRepository.GetAsync(id, b => b.Id == id);//b =>> banka'nın predicate'i.
+        var entity = await _bankaRepository.GetAsync(id, b => b.Id == id, b => b.OzelKod1, b => b.OzelKod2);
         return ObjectMapper.Map<Banka, SelectBankaDto>(entity);
     }
 
@@ -60,7 +64,10 @@ public class BankaAppService : BlazorProjectAppService, IBankaAppService
     {
         var entities = await _bankaRepository.GetPagedListAsync(input.SkipCount, input.MaxResultCount,
             b => b.Durum == input.Durum,
-            b => b.Kod);
+            b => b.Kod,
+            b => b.OzelKod1,//include properties
+            b => b.OzelKod2//include properties
+            );
         var totalCount = await _bankaRepository.CountAsync(b => b.Durum == input.Durum);
         return new PagedResultDto<ListBankaDto>
             (
