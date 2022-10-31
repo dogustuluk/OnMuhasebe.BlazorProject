@@ -10,10 +10,11 @@ namespace OnMuhasebe.BlazorProject.BankaHesaplar;
 public class BankaHesapAppService : BlazorProjectAppService, IBankaHesapAppService
 {
     private readonly IBankaHesapRepository _bankaHesapRepository;
-
-    public BankaHesapAppService(IBankaHesapRepository bankaHesapRepository)
+    private readonly BankaHesapManager _bankaHesapManager;
+    public BankaHesapAppService(IBankaHesapRepository bankaHesapRepository, BankaHesapManager bankaHesapManager)
     {
         _bankaHesapRepository = bankaHesapRepository;
+        _bankaHesapManager = bankaHesapManager;
     }
 
     public virtual async Task<SelectBankaHesapDto> GetAsync(Guid id)
@@ -66,8 +67,8 @@ public class BankaHesapAppService : BlazorProjectAppService, IBankaHesapAppServi
 
             x.Borc = x.MakbuzHareketler.Where
             (
-                y => y.BelgeDurumu == BelgeDurumu.TahsilEdildi 
-                || 
+                y => y.BelgeDurumu == BelgeDurumu.TahsilEdildi
+                ||
                 y.OdemeTuru == OdemeTuru.Pos && y.BelgeDurumu == BelgeDurumu.Portfoyde)
                 .Sum(y => y.Tutar);
 
@@ -81,25 +82,36 @@ public class BankaHesapAppService : BlazorProjectAppService, IBankaHesapAppServi
     }
     public virtual async Task<SelectBankaHesapDto> CreateAsync(CreateBankaHesapDto input)
     {
-        throw new NotImplementedException();
+        await _bankaHesapManager.CheckCreateAsync(input.Kod, input.BankaSubeId, input.OzelKod1Id, input.OzelKod2Id, input.SubeId);
+
+        var entity = ObjectMapper.Map<CreateBankaHesapDto, BankaHesap>(input);
+        await _bankaHesapRepository.InsertAsync(entity);
+        #region descriptionMap
+        /*UI'dan gelen dto'yu veri tabanına yollamak için mapleme yapılır. Maplemede UI'dan gelen CreateBankaHesapDto'yu veri tabanına gidecek olan entity'e map'liyoruz (BankaHesap). Daha sonra veri tabanına inserAsync ile kaydediyoruz. Bundan sonra veri tabanında oluşan id'si ile beraber UI katmanına yollayıp kullanıcıya göndermek için tekrardan bir map işlemi uygulanır. Burada veri tabanına yollanan entity'i (BankaHesap) UI katmanda gösterebileceğimiz entity olan SelectBankaHesapDto'ya map'liyoruz.
+         */
+        #endregion
+        return ObjectMapper.Map<BankaHesap, SelectBankaHesapDto>(entity);
     }
-
-    public virtual async Task DeleteAsync(Guid id)
-    {
-        throw new NotImplementedException();
-    }
-
-
-
-    public virtual async Task<string> GetCodeAsync(BankaHesapCodeParameterDto input)
-    {
-        throw new NotImplementedException();
-    }
-
-
-
     public virtual async Task<SelectBankaHesapDto> UpdateAsync(Guid id, UpdateBankaHesapDto input)
     {
-        throw new NotImplementedException();
+        var entity = await _bankaHesapRepository.GetAsync(id, x => x.Id == id);
+
+        await _bankaHesapManager.CheckUpdateAsync(id, input.Kod, entity, input.BankaSubeId, input.OzelKod1Id, input.OzelKod2Id);
+        #region descriptionMap
+        //Eğer elimizde birbirine map edilebilecek entity'ler hazır ise generic bir yapıyı kullanmayız. UI'dan gelen input ve veri tabanında çektiğimiz entity.
+        #endregion
+        var mappedEntity = ObjectMapper.Map(input, entity);
+
+        await _bankaHesapRepository.UpdateAsync(mappedEntity);
+        return ObjectMapper.Map<BankaHesap, SelectBankaHesapDto>(mappedEntity);
+    }
+    public virtual async Task DeleteAsync(Guid id)
+    {
+        await _bankaHesapManager.CheckDeleteAsync(id);
+        await _bankaHesapRepository.DeleteAsync(id);
+    }
+    public virtual async Task<string> GetCodeAsync(BankaHesapCodeParameterDto input)
+    {
+        return await _bankaHesapRepository.GetCodeAsync(x => x.Kod, x => x.SubeId == input.SubeId && x.Durum == input.Durum);
     }
 }
