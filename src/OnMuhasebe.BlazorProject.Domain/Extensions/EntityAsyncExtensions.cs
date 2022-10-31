@@ -24,6 +24,27 @@ public static class EntityAsyncExtensions
             throw new DuplicateCodeException(kod);
         }
     }
+    /// <summary>
+    /// <para>OzelKod haricindeki entity'ler için kullanılacak olan metottur.</para>
+    /// </summary>
+    /// <typeparam name="TEntity">Diğer entity'ler olacağı için generic olarak atıyoruz.</typeparam>
+    /// <param name="repository">OzelKod alanına göre olmayacak</param>
+    /// <param name="id">object olarak geçiyoruz çünkü herhangi bir id olabilir.</param>
+    /// <param name="predicate">Burada diğer metottaki OzelKod alanına göre bir işlem yapılmayacak.</param>
+    /// <returns></returns>
+    /// <exception cref="EntityNotFoundException"></exception>
+    public static async Task EntityAnyAsync<TEntity>(this IReadOnlyRepository<TEntity> repository, object id, Expression<Func<TEntity, bool>> predicate, bool check = true) where TEntity : class, IEntity
+    {
+        if (check && id != null)
+        {
+            var anyAsync = await repository.AnyAsync(predicate);
+
+            if (!anyAsync)
+            {
+                throw new EntityNotFoundException(typeof(TEntity), id);
+            }
+        }
+    }
     public static async Task EntityAnyAsync(this IReadOnlyRepository<OzelKod> repository, Guid? id, OzelKodTuru kodTuru, KartTuru kartTuru, bool check = true)
     {
         //veri tabanında var ise;
