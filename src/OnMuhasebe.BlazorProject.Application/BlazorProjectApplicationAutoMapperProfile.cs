@@ -3,6 +3,7 @@ using OnMuhasebe.BlazorProject.BankaHesaplar;
 using OnMuhasebe.BlazorProject.Bankalar;
 using OnMuhasebe.BlazorProject.BankaSubeler;
 using OnMuhasebe.BlazorProject.Birimler;
+using OnMuhasebe.BlazorProject.Cariler;
 
 namespace OnMuhasebe.BlazorProject;
 
@@ -18,11 +19,11 @@ public class BlazorProjectApplicationAutoMapperProfile : Profile
         CreateMap<Banka, SelectBankaDto>()
             .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
             .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad));
-        
+
         CreateMap<Banka, ListBankaDto>()
             .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
             .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad));
-        
+
         CreateMap<CreateBankaDto, Banka>();
         CreateMap<UpdateBankaDto, Banka>();
 
@@ -69,5 +70,17 @@ public class BlazorProjectApplicationAutoMapperProfile : Profile
 
         CreateMap<CreateBirimDto, Birim>();
         CreateMap<UpdateBirimDto, Birim>();
+
+        //Cari
+        CreateMap<Cari, SelectCariDto>()
+            .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
+            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad));
+        
+        CreateMap<Cari, ListCariDto>()
+            .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
+            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad));
+        
+        CreateMap<CreateCariDto, Cari>();
+        CreateMap<UpdateCariDto, Cari>();
     }
 }
