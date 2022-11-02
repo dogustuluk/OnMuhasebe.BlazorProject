@@ -2,6 +2,7 @@
 using OnMuhasebe.BlazorProject.BankaHesaplar;
 using OnMuhasebe.BlazorProject.Bankalar;
 using OnMuhasebe.BlazorProject.BankaSubeler;
+using OnMuhasebe.BlazorProject.Birimler;
 
 namespace OnMuhasebe.BlazorProject;
 
@@ -56,5 +57,17 @@ public class BlazorProjectApplicationAutoMapperProfile : Profile
 
         CreateMap<CreateBankaHesapDto, BankaHesap>();
         CreateMap<UpdateBankaHesapDto, BankaHesap>();
+
+        //Birim
+        CreateMap<Birim, SelectBirimDto>()
+            .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
+            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad));
+
+        CreateMap<Birim, ListBirimDto>()
+            .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
+            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad));
+
+        CreateMap<CreateBirimDto, Birim>();
+        CreateMap<UpdateBirimDto, Birim>();
     }
 }
