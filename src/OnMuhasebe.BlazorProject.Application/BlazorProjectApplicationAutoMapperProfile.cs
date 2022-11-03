@@ -5,6 +5,7 @@ using OnMuhasebe.BlazorProject.BankaSubeler;
 using OnMuhasebe.BlazorProject.Birimler;
 using OnMuhasebe.BlazorProject.Cariler;
 using OnMuhasebe.BlazorProject.Depolar;
+using OnMuhasebe.BlazorProject.Donemler;
 
 namespace OnMuhasebe.BlazorProject;
 
@@ -95,5 +96,11 @@ public class BlazorProjectApplicationAutoMapperProfile : Profile
 
         CreateMap<CreateDepoDto, Depo>();
         CreateMap<UpdateDepoDto, Depo>();
+
+        //Donem
+        CreateMap<Donem, SelectDonemDto>();
+        CreateMap<Donem, ListDonemDto>();
+        CreateMap<CreateDonemDto, Donem>();
+        CreateMap<UpdateDonemDto, Donem>();
     }
 }
