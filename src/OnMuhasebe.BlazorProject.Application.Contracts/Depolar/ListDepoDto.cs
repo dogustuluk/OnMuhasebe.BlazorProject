@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using OnMuhasebe.BlazorProject.FaturaHareketler;
 using Volo.Abp.Application.Dtos;
 
 namespace OnMuhasebe.BlazorProject.Depolar;
@@ -12,4 +14,6 @@ public class ListDepoDto : EntityDto<Guid>
     public decimal Cikan { get; set; }
     public decimal Mevcut => Giren - Cikan;
     public string Aciklama { get; set; }
+    //nav prop
+    public ICollection<SelectFaturaHareketDto> FaturaHareketler { get; set; }
 }

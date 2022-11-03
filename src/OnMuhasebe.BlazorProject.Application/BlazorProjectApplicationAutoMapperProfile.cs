@@ -4,6 +4,9 @@ using OnMuhasebe.BlazorProject.Bankalar;
 using OnMuhasebe.BlazorProject.BankaSubeler;
 using OnMuhasebe.BlazorProject.Birimler;
 using OnMuhasebe.BlazorProject.Cariler;
+using OnMuhasebe.BlazorProject.Depolar;
+using OnMuhasebe.BlazorProject.Donemler;
+using OnMuhasebe.BlazorProject.Faturalar;
 
 namespace OnMuhasebe.BlazorProject;
 
@@ -75,12 +78,50 @@ public class BlazorProjectApplicationAutoMapperProfile : Profile
         CreateMap<Cari, SelectCariDto>()
             .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
             .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad));
-        
+
         CreateMap<Cari, ListCariDto>()
             .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
             .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad));
-        
+
         CreateMap<CreateCariDto, Cari>();
         CreateMap<UpdateCariDto, Cari>();
+
+        //Depo
+        CreateMap<Depo, SelectDepoDto>()
+            .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
+            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad));
+
+        CreateMap<Depo, ListDepoDto>()
+            .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
+            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad));
+
+        CreateMap<CreateDepoDto, Depo>();
+        CreateMap<UpdateDepoDto, Depo>();
+
+        //Donem
+        CreateMap<Donem, SelectDonemDto>();
+        CreateMap<Donem, ListDonemDto>();
+        CreateMap<CreateDonemDto, Donem>();
+        CreateMap<UpdateDonemDto, Donem>();
+
+        //Fatura
+        CreateMap<Fatura, SelectFaturaDto>()
+            .ForMember(x => x.CariAdi, y => y.MapFrom(z => z.Cari.Ad))
+            .ForMember(x => x.VergiDairesi, y => y.MapFrom(z => z.Cari.VergiDairesi))
+            .ForMember(x => x.VergiNo, y => y.MapFrom(z => z.Cari.VergiNo))
+            .ForMember(x => x.Adres, y => y.MapFrom(z => z.Cari.Adres))
+            .ForMember(x => x.Telefon, y => y.MapFrom(z => z.Cari.Telefon))
+            .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
+            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad));
+
+        CreateMap<Fatura, ListFaturaDto>()
+            .ForMember(x => x.CariAdi, y => y.MapFrom(z => z.Cari.Ad))
+            .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
+            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad));
+
+
+        CreateMap<CreateFaturaDto, Fatura>();
+        CreateMap<UpdateFaturaDto, Fatura>()
+            .ForMember(x => x.FaturaHareketler, y => y.Ignore());
     }
 }
