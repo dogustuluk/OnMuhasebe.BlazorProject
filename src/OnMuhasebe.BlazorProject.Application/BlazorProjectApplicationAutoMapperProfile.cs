@@ -4,6 +4,7 @@ using OnMuhasebe.BlazorProject.Bankalar;
 using OnMuhasebe.BlazorProject.BankaSubeler;
 using OnMuhasebe.BlazorProject.Birimler;
 using OnMuhasebe.BlazorProject.Cariler;
+using OnMuhasebe.BlazorProject.Depolar;
 
 namespace OnMuhasebe.BlazorProject;
 
@@ -82,5 +83,17 @@ public class BlazorProjectApplicationAutoMapperProfile : Profile
         
         CreateMap<CreateCariDto, Cari>();
         CreateMap<UpdateCariDto, Cari>();
+
+        //Depo
+        CreateMap<Depo, SelectDepoDto>()
+            .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
+            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad));
+        
+        CreateMap<Depo, ListDepoDto>()
+            .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
+            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad));
+
+        CreateMap<CreateDepoDto, Depo>();
+        CreateMap<UpdateDepoDto, Depo>();
     }
 }
