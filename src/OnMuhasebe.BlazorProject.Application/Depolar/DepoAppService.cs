@@ -68,13 +68,14 @@ public class DepoAppService : BlazorProjectAppService, IDepoAppService
 
         #region description2
         //ListDepoDto'nun içerisinde Giren ve Cikan property'lerinin değerlerini almamız gerekir. Bunun için mappedDtos içerisinde dolaşmamız gerekir ki her bir dto için FaturaHareketler'in içerisinde gerekli toplamları alıcaz.
+        //Eğer burada Giren-Cikan değerlerini hesaplamak istersek döngüsel başvuru hatasını düzeltmek için BlazorModule'a gerekli kodlar yazılmalıdır. Bunun önüne geçmek için örnek kodlar BlazorModule sınıfı içerisinde yazılmıştır. İç içer fazlaca döngü olmaması için alternatif bir çözüm üretmiş oluyoruz. Bu çözümde buradaki işlemleri AutoMapperProfile içerisine taşıyıp farklı bir yöntem denemiş olucaz.
         #endregion
-        mappedDtos.ForEach(x =>
-        {
-            x.Giren = x.FaturaHareketler.Where(y => y.Fatura.FaturaTuru == FaturaTuru.Alis).Sum(y => y.Miktar);
+        //mappedDtos.ForEach(x =>
+        //{
+        //    x.Giren = x.FaturaHareketler.Where(y => y.Fatura.FaturaTuru == FaturaTuru.Alis).Sum(y => y.Miktar);
 
-            x.Cikan = x.FaturaHareketler.Where(y => y.Fatura.FaturaTuru == FaturaTuru.Satis).Sum(y => y.Miktar);
-        });
+        //    x.Cikan = x.FaturaHareketler.Where(y => y.Fatura.FaturaTuru == FaturaTuru.Satis).Sum(y => y.Miktar);
+        //});
 
         return new PagedResultDto<ListDepoDto>(totalCount, mappedDtos);
     }

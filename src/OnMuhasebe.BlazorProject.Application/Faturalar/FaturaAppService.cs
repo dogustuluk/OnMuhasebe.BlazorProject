@@ -10,14 +10,25 @@ namespace OnMuhasebe.BlazorProject.Faturalar;
 public class FaturaAppService : BlazorProjectAppService, IFaturaAppService
 {
     private readonly IFaturaRepository _faturaRepository;
-
-    public FaturaAppService(IFaturaRepository faturaRepository)
+    private readonly FaturaManager _faturaManager;
+    private readonly FaturaHareketManager _faturaHareketManager;
+    public FaturaAppService(IFaturaRepository faturaRepository, FaturaManager faturaManager, FaturaHareketManager faturaHareketManager)
     {
         _faturaRepository = faturaRepository;
+        _faturaManager = faturaManager;
+        _faturaHareketManager = faturaHareketManager;
     }
 
     public virtual async Task<SelectFaturaDto> CreateAsync(CreateFaturaDto input)
     {
+        await _faturaManager.CheckCreateAsync(input.FaturaNo, input.CariId, input.OzelKod1Id, input.OzelKod2Id, input.SubeId, input.DonemId);
+
+        //FaturaHareket
+        foreach (var faturaHareket in input.FaturaHareketler)
+        {
+            await _faturaHareketManager.CheckCreateAsync(faturaHareket.StokId, faturaHareket.HizmetId, faturaHareket.MasrafId, faturaHareket.DepoId);
+        }
+        //-
         var entity = ObjectMapper.Map<CreateFaturaDto, Fatura>(input);
         await _faturaRepository.InsertAsync(entity);
         return ObjectMapper.Map<Fatura, SelectFaturaDto>(entity);
@@ -81,8 +92,12 @@ public class FaturaAppService : BlazorProjectAppService, IFaturaAppService
          */
         #endregion
 
+        await _faturaManager.CheckUpdateAsync(id, input.FaturaNo, entity, input.CariId, input.OzelKod1Id, input.OzelKod2Id);
+
         foreach (var faturaHareketDto in input.FaturaHareketler)
         {
+            await _faturaHareketManager.CheckUpdateAsync(faturaHareketDto.StokId, faturaHareketDto.HizmetId, faturaHareketDto.MasrafId, faturaHareketDto.DepoId);
+
              var faturaHareket = entity.FaturaHareketler.FirstOrDefault(x => x.Id == faturaHareketDto.Id);
 
             if (faturaHareket == null)

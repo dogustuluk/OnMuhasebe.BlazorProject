@@ -35,5 +35,5 @@ public class SelectFaturaHareketDto : EntityDto<Guid>
     public decimal KdvTutar { get; set; }
     public decimal NetTutar { get; set; }
     public string Aciklama { get; set; }
-    public SelectFaturaDto Fatura { get; set; }
+    //public SelectFaturaDto Fatura { get; set; } //Pasif duruma alıyoruz çünkü döngüsel başvuru yapmak istemiyoruz.
 }

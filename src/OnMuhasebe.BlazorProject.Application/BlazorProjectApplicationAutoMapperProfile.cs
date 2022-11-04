@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using OnMuhasebe.BlazorProject.BankaHesaplar;
 using OnMuhasebe.BlazorProject.Bankalar;
 using OnMuhasebe.BlazorProject.BankaSubeler;
@@ -6,7 +7,9 @@ using OnMuhasebe.BlazorProject.Birimler;
 using OnMuhasebe.BlazorProject.Cariler;
 using OnMuhasebe.BlazorProject.Depolar;
 using OnMuhasebe.BlazorProject.Donemler;
+using OnMuhasebe.BlazorProject.FaturaHareketler;
 using OnMuhasebe.BlazorProject.Faturalar;
+using OnMuhasebe.BlazorProject.Hizmetler;
 
 namespace OnMuhasebe.BlazorProject;
 
@@ -93,7 +96,14 @@ public class BlazorProjectApplicationAutoMapperProfile : Profile
 
         CreateMap<Depo, ListDepoDto>()
             .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
-            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad));
+            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad))
+        #region descriptionFatura
+            //FaturaHareketler'in içerisindeki Fatura'nın dolu olmasını sağlayan durum ise EfCoreDepoRepositoru içerisinde WithDetailsAsync'i override edip ilgili sınıfları include ve thenInclude yapmamız sonucu olmaktadır.
+        #endregion
+            .ForMember(x => x.Giren, y => y.MapFrom(z => z.FaturaHareketler
+                                                    .Where(x => x.Fatura.FaturaTuru == FaturaTuru.Alis).Sum(x => x.Miktar)))
+            .ForMember(x => x.Cikan, y => y.MapFrom(z => z.FaturaHareketler
+                                                    .Where(x => x.Fatura.FaturaTuru == FaturaTuru.Satis).Sum(x => x.Miktar)));
 
         CreateMap<CreateDepoDto, Depo>();
         CreateMap<UpdateDepoDto, Depo>();
@@ -123,5 +133,53 @@ public class BlazorProjectApplicationAutoMapperProfile : Profile
         CreateMap<CreateFaturaDto, Fatura>();
         CreateMap<UpdateFaturaDto, Fatura>()
             .ForMember(x => x.FaturaHareketler, y => y.Ignore());
+
+        //FaturaHareket
+        //Eklenecek kodlar var.
+        CreateMap<FaturaHareket, SelectFaturaHareketDto>()
+            .ForMember(x => x.StokKodu, y => y.MapFrom(z => z.Stok.Kod))
+            .ForMember(x => x.StokAdi, y => y.MapFrom(z => z.Stok.Ad))
+            .ForMember(x => x.HizmetKodu, y => y.MapFrom(z => z.Hizmet.Kod))
+            .ForMember(x => x.HizmetAdi, y => y.MapFrom(z => z.Hizmet.Ad))
+            .ForMember(x => x.MasrafKodu, y => y.MapFrom(z => z.Masraf.Kod))
+            .ForMember(x => x.MasrafAdi, y => y.MapFrom(z => z.Masraf.Ad))
+            .ForMember(x => x.DepoKodu, y => y.MapFrom(z => z.Depo.Kod))
+            .ForMember(x => x.DepoAdi, y => y.MapFrom(z => z.Depo.Ad))
+            .ForMember(x => x.BirimAdi, y => y.MapFrom(z =>
+                    z.Stok != null ? z.Stok.Birim.Ad :
+                    z.Hizmet != null ? z.Hizmet.Birim.Ad :
+                    z.Masraf != null ? z.Masraf.Birim.Ad : null
+                    ))
+            .ForMember(x => x.HareketKodu, y => y.MapFrom(z =>
+                    z.Stok   != null ? z.Stok.Kod   :
+                    z.Hizmet != null ? z.Hizmet.Kod :
+                    z.Masraf != null ? z.Masraf.Kod : null
+            ))
+            .ForMember(x => x.HareketAdi, y => y.MapFrom(z =>
+                    z.Stok   != null ? z.Stok.Ad   :
+                    z.Hizmet != null ? z.Hizmet.Ad :
+                    z.Masraf != null ? z.Masraf.Ad : null
+            ));
+
+        CreateMap<FaturaHareketDto, FaturaHareket>();
+
+        //Hizmet
+        CreateMap<Hizmet, SelectHizmetDto>()
+            .ForMember(x => x.BirimAdi, y => y.MapFrom(z => z.Birim.Ad))
+            .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
+            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad));
+
+        CreateMap<Hizmet, ListHizmetDto>()
+            .ForMember(x => x.BirimAdi, y => y.MapFrom(z => z.Birim.Ad))
+            .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
+            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad))
+       
+            .ForMember(x => x.Giren, y => y.MapFrom(z => z.FaturaHareketler
+                                                    .Where(x => x.Fatura.FaturaTuru == FaturaTuru.Alis).Sum(x => x.Miktar)))
+            .ForMember(x => x.Cikan, y => y.MapFrom(z => z.FaturaHareketler
+                                                    .Where(x => x.Fatura.FaturaTuru == FaturaTuru.Satis).Sum(x => x.Miktar)));
+
+        CreateMap<CreateHizmetDto, Hizmet>();
+        CreateMap<UpdateHizmetDto, Hizmet>();
     }
 }
