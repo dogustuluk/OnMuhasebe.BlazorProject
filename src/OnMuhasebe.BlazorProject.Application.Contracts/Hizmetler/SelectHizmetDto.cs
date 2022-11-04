@@ -13,6 +13,7 @@ public class SelectHizmetDto : EntityDto<Guid>, IOzelKod
     public decimal BirimFiyat { get; set; }
     public string Barkod { get; set; }
     public Guid BirimId { get; set; }
+    public string BirimAdi { get; set; }
     public Guid? OzelKod1Id { get; set; }
     public string OzelKod1Adi { get; set; }
     public Guid? OzelKod2Id { get; set; }
