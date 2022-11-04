@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using OnMuhasebe.BlazorProject.FaturaHareketler;
 using Volo.Abp.Application.Dtos;
 
 namespace OnMuhasebe.BlazorProject.Faturalar;
@@ -22,4 +23,6 @@ public class CreateFaturaDto : IEntityDto
     public Guid? DonemId { get; set; }
     public string Aciklama { get; set; }
     public bool Durum { get; set; }
+    //nav. prop.
+    public ICollection<FaturaHareketDto> FaturaHareketler { get; set; }
 }

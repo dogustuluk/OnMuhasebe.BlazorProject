@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using Blazorise.Bootstrap5;
 using Blazorise.Icons.FontAwesome;
 using Microsoft.AspNetCore.Builder;
@@ -40,6 +40,7 @@ using Volo.Abp.UI;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
+using System.Text.Json.Serialization;
 
 namespace OnMuhasebe.BlazorProject.Blazor;
 
@@ -100,7 +101,24 @@ public class BlazorProjectBlazorModule : AbpModule
         ConfigureBlazorise(context);
         ConfigureRouter(context);
         ConfigureMenu(context);
+        //ConfigureJson(context);
     }
+    #region descriptionConfigureJson
+    /*DÖNGÜSEL BAŞVURU HATASI ALIRSAK
+     * bu bir hata değildir tam olarak, bunun önüne geçebiliriz ve programa bununla karşılaşınca yoksay
+        dedirtebiliriz. Bazı durumlarda Fatura tablosundan FaturaHareketler'e, FaturaHareketler'den de Fatura
+        tablosuna gitmek isteyebiliriz. Bunun bir sınırı vardır; 32. Bu durumu kapatabiliriz. Bunu kapamak için
+        Startup.cs'te ConfigureServices içerisinde yapabiliriz. Abp Framework'te ise bunu "projeAdıBlazorModule"
+        sınıfının içerisinde yapmamız istenmektedir. Burada ConfigureServices içerisinde yazarız.
+     */
+    #endregion
+    //private void ConfigureJson(ServiceConfigurationContext context)
+    //{
+    //    context.Services.AddControllers()
+    //        .AddJsonOptions(x => x.JsonSerializerOptions
+    //            .ReferenceHandler = ReferenceHandler.IgnoreCycles); //preserve de seçilebilir fakat oluşan json dosyasında bazı meta datalar getirmektedir. Onları istemezsek IgnoreCycles yapılır fakat burada bazı verilerimiz gelmeyebilir. Test etmemiz gerekmektedir.
+    //}
+
 
     private void ConfigureAuthentication(ServiceConfigurationContext context)
     {
