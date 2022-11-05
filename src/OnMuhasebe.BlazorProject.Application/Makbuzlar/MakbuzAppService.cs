@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using OnMuhasebe.BlazorProject.MakbuzHareketler;
 using Volo.Abp.Application.Dtos;
@@ -11,13 +10,24 @@ namespace OnMuhasebe.BlazorProject.Makbuzlar;
 public class MakbuzAppService : BlazorProjectAppService, IMakbuzAppService
 {
     private readonly IMakbuzRepository _makbuzRepository;
-    public MakbuzAppService(IMakbuzRepository makbuzRepository)
+    private readonly MakbuzManager _makbuzManager;
+    private readonly MakbuzHareketManager _makbuzHareketManager;
+    public MakbuzAppService(IMakbuzRepository makbuzRepository, MakbuzManager makbuzManager, MakbuzHareketManager makbuzHareketManager)
     {
         _makbuzRepository = makbuzRepository;
+        _makbuzManager = makbuzManager;
+        _makbuzHareketManager = makbuzHareketManager;
     }
 
     public virtual async Task<SelectMakbuzDto> CreateAsync(CreateMakbuzDto input)
     {
+        await _makbuzManager.CheckCreateAsync(input.MakbuzNo, input.MakbuzTuru.Value, input.CariId, input.KasaId, input.BankaHesapId, input.OzelKod1Id, input.OzelKod2Id, input.SubeId, input.DonemId);
+
+        foreach (var makbuzHareket in input.MakbuzHareketler)
+        {
+            await _makbuzHareketManager.CheckCreateAsync(makbuzHareket.CekBankaId, makbuzHareket.CekBankaSubeId, makbuzHareket.KasaId, makbuzHareket.BankaHesapId);
+        }
+
         var entity = ObjectMapper.Map<CreateMakbuzDto, Makbuz>(input);
         await _makbuzRepository.InsertAsync(entity);
         return ObjectMapper.Map<Makbuz, SelectMakbuzDto>(entity);
@@ -67,8 +77,13 @@ public class MakbuzAppService : BlazorProjectAppService, IMakbuzAppService
     public virtual async Task<SelectMakbuzDto> UpdateAsync(Guid id, UpdateMakbuzDto input)
     {
         var entity = await _makbuzRepository.GetAsync(id, x => x.Id == id, x => x.MakbuzHareketler);//MakbuzHareketler'i include etmemizin sebebi aşağıdaki kodlarda onla ilgili işlem yapacak olmamız.
+
+        await _makbuzManager.CheckUpdateAsync(id, input.MakbuzNo, entity, input.CariId, input.KasaId, input.BankaHesapId ,input.OzelKod1Id, input.OzelKod2Id);
+
         foreach (var makbuzHareketDto in input.MakbuzHareketler)
         {
+            await _makbuzHareketManager.CheckUpdateAsync(makbuzHareketDto.CekBankaId, makbuzHareketDto.CekBankaSubeId, makbuzHareketDto.KasaId, makbuzHareketDto.BankaHesapId);
+
             //FirstOrDefault kullandığımız için null gelip gelmediğini kontrol etmemiz gerekmektedir.
             var makbuzHareket = entity.MakbuzHareketler.FirstOrDefault(
                 x => x.Id == makbuzHareketDto.Id);
@@ -83,7 +98,7 @@ public class MakbuzAppService : BlazorProjectAppService, IMakbuzAppService
         var deletedEntities = entity.MakbuzHareketler.Where(
             x => input.MakbuzHareketler.Select(y => y.Id).ToList().IndexOf(x.Id) == -1);//database'de olup UI'da olmayan MakbuzHareketler'i getirmiş olacak. Çünkü bunların silinmesi gerekir.
         entity.MakbuzHareketler.RemoveAll(deletedEntities);//silinmesi gereken hareketler silinmiş oldu.
-        
+
         ObjectMapper.Map(input, entity);
         await _makbuzRepository.UpdateAsync(entity);
         return ObjectMapper.Map<Makbuz, SelectMakbuzDto>(entity);
