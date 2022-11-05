@@ -10,6 +10,10 @@ using OnMuhasebe.BlazorProject.Donemler;
 using OnMuhasebe.BlazorProject.FaturaHareketler;
 using OnMuhasebe.BlazorProject.Faturalar;
 using OnMuhasebe.BlazorProject.Hizmetler;
+using OnMuhasebe.BlazorProject.Kasalar;
+using OnMuhasebe.BlazorProject.MakbuzHareketler;
+using OnMuhasebe.BlazorProject.Makbuzlar;
+using OnMuhasebe.BlazorProject.Masraflar;
 
 namespace OnMuhasebe.BlazorProject;
 
@@ -181,5 +185,74 @@ public class BlazorProjectApplicationAutoMapperProfile : Profile
 
         CreateMap<CreateHizmetDto, Hizmet>();
         CreateMap<UpdateHizmetDto, Hizmet>();
+
+        //Kasa
+        CreateMap<Kasa, SelectKasaDto>()
+            .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
+            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad));
+
+        CreateMap<Kasa, ListKasaDto>()
+            .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
+            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad))
+       
+            .ForMember(x => x.Borc, y => y.MapFrom(z => z.MakbuzHareketler
+                                                    .Where(x => x.BelgeDurumu == BelgeDurumu.TahsilEdildi).Sum(x => x.Tutar)))
+            .ForMember(x => x.Alacak, y => y.MapFrom(z => z.MakbuzHareketler
+                                                    .Where(x => x.BelgeDurumu == BelgeDurumu.Odendi).Sum(x => x.Tutar)));
+
+        CreateMap<CreateKasaDto, Kasa>();
+        CreateMap<UpdateKasaDto, Kasa>();
+
+        //Makbuz
+        CreateMap<Makbuz, SelectMakbuzDto>()
+            .ForMember(x => x.CariKodu, y => y.MapFrom(z => z.Cari.Kod))
+            .ForMember(x => x.CariAdi, y => y.MapFrom(z => z.Cari.Ad))
+            .ForMember(x => x.KasaAdi, y => y.MapFrom(z => z.Kasa.Ad))
+            .ForMember(x => x.BankaHesapAdi, y => y.MapFrom(z => z.BankaHesap.Ad))
+            .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
+            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad))
+            .ForMember(x => x.SubeAdi, y => y.MapFrom(z => z.Sube.Ad));
+
+        CreateMap<Makbuz, ListMakbuzDto>()
+            .ForMember(x => x.CariAdi, y => y.MapFrom(z => z.Cari.Ad))
+            .ForMember(x => x.KasaAdi, y => y.MapFrom(z => z.Kasa.Ad))
+            .ForMember(x => x.BankaHesapAdi, y => y.MapFrom(z => z.BankaHesap.Ad))
+            .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
+            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad));
+
+
+        CreateMap<CreateMakbuzDto, Makbuz>();
+        CreateMap<UpdateMakbuzDto, Makbuz>()
+            .ForMember(x => x.MakbuzHareketler, y => y.Ignore());//deletedEntities olarak seçili olanları silmesi için yazarız.
+
+
+        //MakbuzHareket
+        CreateMap<MakbuzHareket, SelectMakbuzHareketDto>()
+            .ForMember(x => x.CekBankaAdi, y => y.MapFrom(z => z.CekBanka.Ad))
+            .ForMember(x => x.CekBankaSubeAdi, y => y.MapFrom(z => z.CekBankaSube.Ad))
+            .ForMember(x => x.KasaAdi, y => y.MapFrom(z => z.Kasa.Ad))
+            .ForMember(x => x.BankaHesapAdi, y => y.MapFrom(z => z.BankaHesap.Ad));
+            
+        CreateMap<MakbuzHareketDto, MakbuzHareket>();
+
+        //Masraf
+        CreateMap<Masraf, SelectMasrafDto>()
+            .ForMember(x => x.BirimAdi, y => y.MapFrom(z => z.Birim.Ad))
+            .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
+            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad));
+
+        CreateMap<Masraf, ListMasrafDto>()
+            .ForMember(x => x.BirimAdi, y => y.MapFrom(z => z.Birim.Ad))
+            .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
+            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad))
+
+            .ForMember(x => x.Giren, y => y.MapFrom(z => z.FaturaHareketler
+                                                    .Where(x => x.Fatura.FaturaTuru == FaturaTuru.Alis).Sum(x => x.Miktar)))
+            .ForMember(x => x.Cikan, y => y.MapFrom(z => z.FaturaHareketler
+                                                    .Where(x => x.Fatura.FaturaTuru == FaturaTuru.Satis).Sum(x => x.Miktar)));
+
+        CreateMap<CreateMasrafDto, Masraf>();
+        CreateMap<UpdateMasrafDto, Masraf>();
+
     }
 }
