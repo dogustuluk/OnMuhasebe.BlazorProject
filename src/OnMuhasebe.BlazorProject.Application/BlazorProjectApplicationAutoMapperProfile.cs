@@ -11,6 +11,7 @@ using OnMuhasebe.BlazorProject.FaturaHareketler;
 using OnMuhasebe.BlazorProject.Faturalar;
 using OnMuhasebe.BlazorProject.Hizmetler;
 using OnMuhasebe.BlazorProject.Kasalar;
+using OnMuhasebe.BlazorProject.MakbuzHareketler;
 using OnMuhasebe.BlazorProject.Makbuzlar;
 
 namespace OnMuhasebe.BlazorProject;
@@ -200,5 +201,37 @@ public class BlazorProjectApplicationAutoMapperProfile : Profile
 
         CreateMap<CreateKasaDto, Kasa>();
         CreateMap<UpdateKasaDto, Kasa>();
+
+        //Makbuz
+        CreateMap<Makbuz, SelectMakbuzDto>()
+            .ForMember(x => x.CariKodu, y => y.MapFrom(z => z.Cari.Kod))
+            .ForMember(x => x.CariAdi, y => y.MapFrom(z => z.Cari.Ad))
+            .ForMember(x => x.KasaAdi, y => y.MapFrom(z => z.Kasa.Ad))
+            .ForMember(x => x.BankaHesapAdi, y => y.MapFrom(z => z.BankaHesap.Ad))
+            .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
+            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad))
+            .ForMember(x => x.SubeAdi, y => y.MapFrom(z => z.Sube.Ad));
+
+        CreateMap<Makbuz, ListMakbuzDto>()
+            .ForMember(x => x.CariAdi, y => y.MapFrom(z => z.Cari.Ad))
+            .ForMember(x => x.KasaAdi, y => y.MapFrom(z => z.Kasa.Ad))
+            .ForMember(x => x.BankaHesapAdi, y => y.MapFrom(z => z.BankaHesap.Ad))
+            .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
+            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad));
+
+
+        CreateMap<CreateMakbuzDto, Makbuz>();
+        CreateMap<UpdateMakbuzDto, Makbuz>()
+            .ForMember(x => x.MakbuzHareketler, y => y.Ignore());//deletedEntities olarak seçili olanları silmesi için yazarız.
+
+
+        //MakbuzHareket
+        CreateMap<MakbuzHareket, SelectMakbuzHareketDto>()
+            .ForMember(x => x.CekBankaAdi, y => y.MapFrom(z => z.CekBanka.Ad))
+            .ForMember(x => x.CekBankaSubeAdi, y => y.MapFrom(z => z.CekBankaSube.Ad))
+            .ForMember(x => x.KasaAdi, y => y.MapFrom(z => z.Kasa.Ad))
+            .ForMember(x => x.BankaHesapAdi, y => y.MapFrom(z => z.BankaHesap.Ad));
+            
+        CreateMap<MakbuzHareketDto, MakbuzHareket>();
     }
 }
