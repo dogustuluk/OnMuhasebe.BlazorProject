@@ -13,6 +13,7 @@ using OnMuhasebe.BlazorProject.Hizmetler;
 using OnMuhasebe.BlazorProject.Kasalar;
 using OnMuhasebe.BlazorProject.MakbuzHareketler;
 using OnMuhasebe.BlazorProject.Makbuzlar;
+using OnMuhasebe.BlazorProject.Masraflar;
 
 namespace OnMuhasebe.BlazorProject;
 
@@ -233,5 +234,25 @@ public class BlazorProjectApplicationAutoMapperProfile : Profile
             .ForMember(x => x.BankaHesapAdi, y => y.MapFrom(z => z.BankaHesap.Ad));
             
         CreateMap<MakbuzHareketDto, MakbuzHareket>();
+
+        //Masraf
+        CreateMap<Masraf, SelectMasrafDto>()
+            .ForMember(x => x.BirimAdi, y => y.MapFrom(z => z.Birim.Ad))
+            .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
+            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad));
+
+        CreateMap<Masraf, ListMasrafDto>()
+            .ForMember(x => x.BirimAdi, y => y.MapFrom(z => z.Birim.Ad))
+            .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
+            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad))
+
+            .ForMember(x => x.Giren, y => y.MapFrom(z => z.FaturaHareketler
+                                                    .Where(x => x.Fatura.FaturaTuru == FaturaTuru.Alis).Sum(x => x.Miktar)))
+            .ForMember(x => x.Cikan, y => y.MapFrom(z => z.FaturaHareketler
+                                                    .Where(x => x.Fatura.FaturaTuru == FaturaTuru.Satis).Sum(x => x.Miktar)));
+
+        CreateMap<CreateMasrafDto, Masraf>();
+        CreateMap<UpdateMasrafDto, Masraf>();
+
     }
 }
