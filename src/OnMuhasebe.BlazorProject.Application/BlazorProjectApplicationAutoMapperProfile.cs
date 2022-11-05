@@ -10,6 +10,8 @@ using OnMuhasebe.BlazorProject.Donemler;
 using OnMuhasebe.BlazorProject.FaturaHareketler;
 using OnMuhasebe.BlazorProject.Faturalar;
 using OnMuhasebe.BlazorProject.Hizmetler;
+using OnMuhasebe.BlazorProject.Kasalar;
+using OnMuhasebe.BlazorProject.Makbuzlar;
 
 namespace OnMuhasebe.BlazorProject;
 
@@ -181,5 +183,22 @@ public class BlazorProjectApplicationAutoMapperProfile : Profile
 
         CreateMap<CreateHizmetDto, Hizmet>();
         CreateMap<UpdateHizmetDto, Hizmet>();
+
+        //Kasa
+        CreateMap<Kasa, SelectKasaDto>()
+            .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
+            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad));
+
+        CreateMap<Kasa, ListKasaDto>()
+            .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
+            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad))
+       
+            .ForMember(x => x.Borc, y => y.MapFrom(z => z.MakbuzHareketler
+                                                    .Where(x => x.BelgeDurumu == BelgeDurumu.TahsilEdildi).Sum(x => x.Tutar)))
+            .ForMember(x => x.Alacak, y => y.MapFrom(z => z.MakbuzHareketler
+                                                    .Where(x => x.BelgeDurumu == BelgeDurumu.Odendi).Sum(x => x.Tutar)));
+
+        CreateMap<CreateKasaDto, Kasa>();
+        CreateMap<UpdateKasaDto, Kasa>();
     }
 }
