@@ -16,6 +16,7 @@ using OnMuhasebe.BlazorProject.Makbuzlar;
 using OnMuhasebe.BlazorProject.Masraflar;
 using OnMuhasebe.BlazorProject.OzelKodlar;
 using OnMuhasebe.BlazorProject.Parametreler;
+using OnMuhasebe.BlazorProject.Stoklar;
 
 namespace OnMuhasebe.BlazorProject;
 
@@ -157,12 +158,12 @@ public class BlazorProjectApplicationAutoMapperProfile : Profile
                     z.Masraf != null ? z.Masraf.Birim.Ad : null
                     ))
             .ForMember(x => x.HareketKodu, y => y.MapFrom(z =>
-                    z.Stok   != null ? z.Stok.Kod   :
+                    z.Stok != null ? z.Stok.Kod :
                     z.Hizmet != null ? z.Hizmet.Kod :
                     z.Masraf != null ? z.Masraf.Kod : null
             ))
             .ForMember(x => x.HareketAdi, y => y.MapFrom(z =>
-                    z.Stok   != null ? z.Stok.Ad   :
+                    z.Stok != null ? z.Stok.Ad :
                     z.Hizmet != null ? z.Hizmet.Ad :
                     z.Masraf != null ? z.Masraf.Ad : null
             ));
@@ -179,7 +180,7 @@ public class BlazorProjectApplicationAutoMapperProfile : Profile
             .ForMember(x => x.BirimAdi, y => y.MapFrom(z => z.Birim.Ad))
             .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
             .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad))
-       
+
             .ForMember(x => x.Giren, y => y.MapFrom(z => z.FaturaHareketler
                                                     .Where(x => x.Fatura.FaturaTuru == FaturaTuru.Alis).Sum(x => x.Miktar)))
             .ForMember(x => x.Cikan, y => y.MapFrom(z => z.FaturaHareketler
@@ -196,7 +197,7 @@ public class BlazorProjectApplicationAutoMapperProfile : Profile
         CreateMap<Kasa, ListKasaDto>()
             .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
             .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad))
-       
+
             .ForMember(x => x.Borc, y => y.MapFrom(z => z.MakbuzHareketler
                                                     .Where(x => x.BelgeDurumu == BelgeDurumu.TahsilEdildi).Sum(x => x.Tutar)))
             .ForMember(x => x.Alacak, y => y.MapFrom(z => z.MakbuzHareketler
@@ -234,7 +235,7 @@ public class BlazorProjectApplicationAutoMapperProfile : Profile
             .ForMember(x => x.CekBankaSubeAdi, y => y.MapFrom(z => z.CekBankaSube.Ad))
             .ForMember(x => x.KasaAdi, y => y.MapFrom(z => z.Kasa.Ad))
             .ForMember(x => x.BankaHesapAdi, y => y.MapFrom(z => z.BankaHesap.Ad));
-            
+
         CreateMap<MakbuzHareketDto, MakbuzHareket>();
 
         //Masraf
@@ -271,6 +272,23 @@ public class BlazorProjectApplicationAutoMapperProfile : Profile
         CreateMap<CreateFirmaParametreDto, FirmaParametre>();
         CreateMap<UpdateFirmaParametreDto, FirmaParametre>();
 
+        //Stok
+        CreateMap<Stok, SelectStokDto>()
+            .ForMember(x => x.BirimAdi, y => y.MapFrom(z => z.Birim.Ad))
+            .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
+            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad));
 
+        CreateMap<Stok, ListStokDto>()
+            .ForMember(x => x.BirimAdi, y => y.MapFrom(z => z.Birim.Ad))
+            .ForMember(x => x.OzelKod1Adi, y => y.MapFrom(z => z.OzelKod1.Ad))
+            .ForMember(x => x.OzelKod2Adi, y => y.MapFrom(z => z.OzelKod2.Ad))
+
+            .ForMember(x => x.Giren, y => y.MapFrom(z => z.FaturaHareketler
+                                                    .Where(x => x.Fatura.FaturaTuru == FaturaTuru.Alis).Sum(x => x.Miktar)))
+            .ForMember(x => x.Cikan, y => y.MapFrom(z => z.FaturaHareketler
+                                                    .Where(x => x.Fatura.FaturaTuru == FaturaTuru.Satis).Sum(x => x.Miktar)));
+
+        CreateMap<CreateStokDto, Stok>();
+        CreateMap<UpdateStokDto, Stok>();
     }
 }
