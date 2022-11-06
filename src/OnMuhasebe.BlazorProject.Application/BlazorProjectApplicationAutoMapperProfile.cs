@@ -15,6 +15,7 @@ using OnMuhasebe.BlazorProject.MakbuzHareketler;
 using OnMuhasebe.BlazorProject.Makbuzlar;
 using OnMuhasebe.BlazorProject.Masraflar;
 using OnMuhasebe.BlazorProject.OzelKodlar;
+using OnMuhasebe.BlazorProject.Parametreler;
 
 namespace OnMuhasebe.BlazorProject;
 
@@ -260,6 +261,16 @@ public class BlazorProjectApplicationAutoMapperProfile : Profile
         CreateMap<OzelKod, ListOzelKodDto>();
         CreateMap<CreateOzelKodDto, OzelKod>();
         CreateMap<UpdateOzelKodDto, OzelKod>();
+
+        //FirmaParametre
+        CreateMap<FirmaParametre, SelectFirmaParametreDto>()
+            .ForMember(x => x.SubeAdi, y => y.MapFrom(z => z.Sube.Ad))
+            .ForMember(x => x.DonemAdi, y => y.MapFrom(z => z.Donem.Ad))
+            .ForMember(x => x.DepoAdi, y => y.MapFrom(z => z.Depo.Ad));
+
+        CreateMap<CreateFirmaParametreDto, FirmaParametre>();
+        CreateMap<UpdateFirmaParametreDto, FirmaParametre>();
+
 
     }
 }
