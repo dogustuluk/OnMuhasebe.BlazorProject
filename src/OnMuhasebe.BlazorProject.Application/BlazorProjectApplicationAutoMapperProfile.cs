@@ -17,6 +17,7 @@ using OnMuhasebe.BlazorProject.Masraflar;
 using OnMuhasebe.BlazorProject.OzelKodlar;
 using OnMuhasebe.BlazorProject.Parametreler;
 using OnMuhasebe.BlazorProject.Stoklar;
+using OnMuhasebe.BlazorProject.Subeler;
 
 namespace OnMuhasebe.BlazorProject;
 
@@ -290,5 +291,11 @@ public class BlazorProjectApplicationAutoMapperProfile : Profile
 
         CreateMap<CreateStokDto, Stok>();
         CreateMap<UpdateStokDto, Stok>();
+
+        //Sube
+        CreateMap<Sube, SelectSubeDto>();
+        CreateMap<Sube, ListSubeDto>();
+        CreateMap<CreateSubeDto, Sube>();
+        CreateMap<UpdateSubeDto, Sube>();
     }
 }
