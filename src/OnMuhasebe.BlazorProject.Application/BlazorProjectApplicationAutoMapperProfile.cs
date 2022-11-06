@@ -14,6 +14,7 @@ using OnMuhasebe.BlazorProject.Kasalar;
 using OnMuhasebe.BlazorProject.MakbuzHareketler;
 using OnMuhasebe.BlazorProject.Makbuzlar;
 using OnMuhasebe.BlazorProject.Masraflar;
+using OnMuhasebe.BlazorProject.OzelKodlar;
 
 namespace OnMuhasebe.BlazorProject;
 
@@ -253,6 +254,12 @@ public class BlazorProjectApplicationAutoMapperProfile : Profile
 
         CreateMap<CreateMasrafDto, Masraf>();
         CreateMap<UpdateMasrafDto, Masraf>();
+
+        //OzelKod
+        CreateMap<OzelKod, SelectOzelKodDto>();
+        CreateMap<OzelKod, ListOzelKodDto>();
+        CreateMap<CreateOzelKodDto, OzelKod>();
+        CreateMap<UpdateOzelKodDto, OzelKod>();
 
     }
 }
