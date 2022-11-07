@@ -8,6 +8,7 @@
     "Exception:00002": "Kartın işlem görmüş hareketleri var. Bundan dolayı kart silinemez.",
     "Exception:00003": "{0} alanı zorunludur.",
     "Exception:00004": "{0} alanı en fazla {1} karakterden oluşmalıdır.",
+    "Exception:00005":"{0} alanının değeri {1} eşit veya {2} büyük olmalıdır.",
     "Enum:BankaHesapTuru:1": "Vadesiz Mevduat Hesabı",
     "Enum:BankaHesapTuru:2": "Vadeli Mevduat Hesabı",
     "Enum:BankaHesapTuru:3": "Kredi Hesabı",
@@ -39,6 +40,12 @@
     "TaxAdministration": "Vergi Dairesi",
     "TaxNumber": "Vergi Numarası",
     "PhoneNumber": "Telefon Numarası",
-    "Address" : "Adres"
+    "Address": "Adres",
+    "ValueAddedTaxRate": "Kdv Oranı",
+    "ToZero": "Sıfıra",
+    "ThanZero": "Sıfırdan",
+    "UnitPrice": "Birim Fiyat",
+    "BarCode": "Barkod",
+    "Unit": "Birim"
   }
 }
