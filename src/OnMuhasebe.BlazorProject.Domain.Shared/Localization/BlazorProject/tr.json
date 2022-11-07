@@ -48,6 +48,24 @@
     "BarCode": "Barkod",
     "Unit": "Birim",
     "CodeType": "Kod Türü",
-    "CardType" :  "Kart Türü"
+    "CardType": "Kart Türü",
+    "InvoiceType": "Fatura Türü",
+    "InvoiceNumber": "Fatura Numarası",
+    "Date": "Tarih",
+    "GrossAmount": "Brüt Tutar",
+    "DiscountAmount": "İndirim Tutar",
+    "ExcludesValueAddedTaxAmount": "Kdv Hariç Tutar",
+    "ValueAddedTaxAmount": "Kdv Tutar",
+    "TotalAmount": "Net Tutar",
+    "NumberOfTransactions": "Hareket Sayısı",
+    "Customer": "Cari",
+    "Period": "Dönem",
+    "Id": "Id",
+    "RowType": "Hareket Türü",
+    "Stock": "Stok",
+    "Service": "Hizmet",
+    "Expense": "Masraf",
+    "Warehouse": "Depo",
+    "Quantity": "Miktar"
   }
 }
