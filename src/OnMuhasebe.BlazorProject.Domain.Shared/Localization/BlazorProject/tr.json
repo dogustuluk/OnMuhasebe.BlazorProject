@@ -9,6 +9,7 @@
     "Exception:00003": "{0} alanı zorunludur.",
     "Exception:00004": "{0} alanı en fazla {1} karakterden oluşmalıdır.",
     "Exception:00005": "{0} alanının değeri {1} eşit veya {2} büyük olmalıdır.",
+    "Exception:00006": "Girdiğiniz diğer veriler dikkate alındığında {0} alanının değeri boş olmalıdır.",
     "Enum:BankaHesapTuru:1": "Vadesiz Mevduat Hesabı",
     "Enum:BankaHesapTuru:2": "Vadeli Mevduat Hesabı",
     "Enum:BankaHesapTuru:3": "Kredi Hesabı",
@@ -66,6 +67,25 @@
     "Service": "Hizmet",
     "Expense": "Masraf",
     "Warehouse": "Depo",
-    "Quantity": "Miktar"
+    "Quantity": "Miktar",
+    "ReceiptType": "Makbuz Türü",
+    "ReceiptNo": "Makbuz No",
+    "Cash": "Kasa",
+    "BankAccount": "Banka Hesabı",
+    "CheckTotal": "Çek Toplamı",
+    "BillOfExchangeTotal": "Senet Toplamı",
+    "PosTotal": "Pos Toplamı",
+    "CashTotal": "Nakit Toplamı",
+    "BankTotal": "Banka Toplam",
+    "PaymentType": "Ödeme Türü",
+    "TrackingNo": "Takip No",
+    "CheckAccountNo": "Çek Hesap No",
+    "CheckNo": "Çek No",
+    "PrincipalDebtor": "Asıl Borçlu",
+    "Endorser": "Ciranta",
+    "CashAccount": "Kasa Hesabı",
+    "Amount": "Tutar",
+    "MeonsOfPaymentState": "Belge Durumu"
+
   }
 }

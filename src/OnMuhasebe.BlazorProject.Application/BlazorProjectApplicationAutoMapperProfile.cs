@@ -227,8 +227,9 @@ public class BlazorProjectApplicationAutoMapperProfile : Profile
 
         CreateMap<CreateMakbuzDto, Makbuz>();
         CreateMap<UpdateMakbuzDto, Makbuz>()
+            .ForMember(x => x.MakbuzTuru, y => y.Ignore())
             .ForMember(x => x.MakbuzHareketler, y => y.Ignore());//deletedEntities olarak seçili olanları silmesi için yazarız.
-
+            
 
         //MakbuzHareket
         CreateMap<MakbuzHareket, SelectMakbuzHareketDto>()
