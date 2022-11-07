@@ -5,7 +5,7 @@ using OnMuhasebe.BlazorProject.Makbuzlar;
 using Volo.Abp.Application.Dtos;
 
 namespace OnMuhasebe.BlazorProject.MakbuzHareketler;
-public class MakbuzHareketDto : EntityDto<Guid>
+public class MakbuzHareketDto : EntityDto<Guid?>
 {
     public OdemeTuru? OdemeTuru { get; set; }
     public string TakipNo { get; set; }

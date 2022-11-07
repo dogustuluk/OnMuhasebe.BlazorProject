@@ -9,7 +9,7 @@ public class UpdateFaturaDto : IEntityDto
 {
     public string FaturaNo { get; set; }
     public DateTime Tarih { get; set; }
-    public Guid CariId { get; set; }
+    public Guid? CariId { get; set; }
     public decimal BrutTutar { get; set; }
     public decimal IndirimTutar { get; set; }
     public decimal KdvHaricTutar { get; set; }

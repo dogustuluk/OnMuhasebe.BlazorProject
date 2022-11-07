@@ -5,7 +5,7 @@ using OnMuhasebe.BlazorProject.Faturalar;
 using Volo.Abp.Application.Dtos;
 
 namespace OnMuhasebe.BlazorProject.FaturaHareketler;
-public class FaturaHareketDto : EntityDto<Guid>
+public class FaturaHareketDto : EntityDto<Guid?>
 {
     public FaturaHareketTuru? HareketTuru { get; set; }
     public Guid? StokId { get; set; }

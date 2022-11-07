@@ -7,7 +7,7 @@ using Volo.Abp.Application.Dtos;
 namespace OnMuhasebe.BlazorProject.Makbuzlar;
 public class UpdateMakbuzDto : IEntityDto
 {
-    public MakbuzTuru MakbuzTuru { get; set; }
+    public MakbuzTuru MakbuzTuru { get; set; } //bu property update edilemez fakat buradan hareketle bazı işlemler yapıyor olucaz. Mesela CreateMakbuzDto'da Kasa'da makbuz türü'nü kullanıyoruz. update aşamasında bu property'i map'leme aşamasında devre dışı bırakmış olucaz.
     public string MakbuzNo { get; set; }
     public DateTime Tarih { get; set; }
     public Guid? CariId { get; set; }
