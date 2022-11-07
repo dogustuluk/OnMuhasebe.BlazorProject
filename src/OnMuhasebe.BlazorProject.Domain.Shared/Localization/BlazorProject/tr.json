@@ -34,6 +34,11 @@
     "AccountNumber": "Hesap Numarası",
     "Iban": "Iban No",
     "Branch": "Şube",
-    "Description": "Açıklama"
+    "Description": "Açıklama",
+    "Bank": "Banka",
+    "TaxAdministration": "Vergi Dairesi",
+    "TaxNumber": "Vergi Numarası",
+    "PhoneNumber": "Telefon Numarası",
+    "Address" : "Adres"
   }
 }
