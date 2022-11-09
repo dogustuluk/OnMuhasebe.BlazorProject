@@ -41,6 +41,7 @@ using Volo.Abp.UI.Navigation;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
 using System.Text.Json.Serialization;
+using DevExpress.Blazor.Configuration;
 
 namespace OnMuhasebe.BlazorProject.Blazor;
 
@@ -101,8 +102,20 @@ public class BlazorProjectBlazorModule : AbpModule
         ConfigureBlazorise(context);
         ConfigureRouter(context);
         ConfigureMenu(context);
+
+        ConfigureDevexpress(context);
         //ConfigureJson(context);
     }
+    private void ConfigureDevexpress(ServiceConfigurationContext context)
+    {
+        context.Services.AddDevExpressBlazor();
+
+        context.Services.Configure<GlobalOptions>(options => {
+            options.BootstrapVersion = DevExpress.Blazor.BootstrapVersion.v5;
+        });
+    }
+
+
     #region descriptionConfigureJson
     /*DÖNGÜSEL BAŞVURU HATASI ALIRSAK
      * bu bir hata değildir tam olarak, bunun önüne geçebiliriz ve programa bununla karşılaşınca yoksay
@@ -145,18 +158,34 @@ public class BlazorProjectBlazorModule : AbpModule
                 {
                     bundle.AddFiles("/global-styles.css");
                 }
+                
             );
+
 
             //BLAZOR UI
             options.StyleBundles.Configure(
                 BlazorLeptonXLiteThemeBundles.Styles.Global,
                 bundle =>
                 {
-                    bundle.AddFiles("/blazor-global-styles.css");
+                   // bundle.AddFiles("/_content/DevExpress.Blazor.Themes/blazing-dark.bs5.css");
+                    bundle.AddFiles("/css/blazing_berry/bootstrap.min.css");
+                    bundle.AddFiles("/css/site.css");
+                    //bundle.AddFiles("_content/DevExpress.Blazor/dx-blazor.bs5.css");
+                    
                     //You can remove the following line if you don't use Blazor CSS isolation for components
                     bundle.AddFiles("/OnMuhasebe.BlazorProject.Blazor.styles.css");
+                    bundle.AddFiles("/blazor-global-styles.css");
                 }
             );
+            //javascript dosyası eklemek için
+            options.ScriptBundles.Configure(
+                BlazorLeptonXLiteThemeBundles.Scripts.Global,
+                bundle =>
+                {
+                    //İhtiyaç halinde javascript dosya yolları eklenecek.
+                }
+              );
+
         });
     }
 

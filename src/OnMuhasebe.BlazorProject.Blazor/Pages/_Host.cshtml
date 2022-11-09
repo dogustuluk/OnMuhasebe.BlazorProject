@@ -1,4 +1,5 @@
-﻿@page "/"
+﻿@page "/" 
+@*page "/" ile kök dizin olduğunu belirtiriz.*@
 @namespace OnMuhasebe.BlazorProject.Blazor.Pages
 @using System.Globalization
 @using Volo.Abp.AspNetCore.Components.Web.LeptonXLiteTheme.Themes.LeptonXLite
@@ -19,7 +20,7 @@
     
     <abp-style-bundle name="@BlazorLeptonXLiteThemeBundles.Styles.Global" />
 </head>
-<body class="abp-application-layout bg-light @rtl">
+<body class="abp-application-layout @rtl">
 
     <component type="typeof(App)" render-mode="Server" />
 
