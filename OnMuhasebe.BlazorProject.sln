@@ -42,6 +42,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestBlazor", "TestBlazor\TestBlazor.csproj", "{1090DEC2-1C1C-4B74-AE11-2C3DD42C6086}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnMuhasebe.Blazor.Core", "src\OnMuhasebe.Blazor.Core\OnMuhasebe.Blazor.Core.csproj", "{729A46F8-E8C0-4ACF-8CA6-F6CA64B3E0DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -108,6 +110,10 @@ Global
 		{1090DEC2-1C1C-4B74-AE11-2C3DD42C6086}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1090DEC2-1C1C-4B74-AE11-2C3DD42C6086}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1090DEC2-1C1C-4B74-AE11-2C3DD42C6086}.Release|Any CPU.Build.0 = Release|Any CPU
+		{729A46F8-E8C0-4ACF-8CA6-F6CA64B3E0DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{729A46F8-E8C0-4ACF-8CA6-F6CA64B3E0DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{729A46F8-E8C0-4ACF-8CA6-F6CA64B3E0DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{729A46F8-E8C0-4ACF-8CA6-F6CA64B3E0DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -127,6 +133,7 @@ Global
 		{EF480016-9127-4916-8735-D2466BDBC582} = {04DBDB01-70F4-4E06-B468-8F87850B22BE}
 		{AA94D832-1CCC-4715-95A9-A483F23A1A5D} = {CA9AC87F-097E-4F15-8393-4BC07735A5B0}
 		{16F0BF4E-7D73-4278-8D9A-7CDE37105C6B} = {CA9AC87F-097E-4F15-8393-4BC07735A5B0}
+		{729A46F8-E8C0-4ACF-8CA6-F6CA64B3E0DB} = {CA9AC87F-097E-4F15-8393-4BC07735A5B0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {28315BFD-90E7-4E14-A2EA-F3D23AF4126F}
