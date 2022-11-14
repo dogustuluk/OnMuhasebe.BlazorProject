@@ -1,18 +1,85 @@
-﻿@page "/"
+﻿@*kök sayfa olduğunu belirtiriz "page'/'" ile.*@
+@page "/"
 
-<h2 class="pb-2">Blazor Components</h2>
-<p class="pb-2 mw-1100">
-    Our Blazor UI components will help you create intuitive and highly-refined user experiences for both Blazor Server (ASP.NET Core) and Blazor WebAssembly hosting models.
-</p>
-<div class="pb-2 mw-1100">
-    <img class="fit-width" src="images/banner.png" />
-</div>
+@*DxGridLayout 3 ana bölümden oluşur; Rows, Columns ve Items.*@
+<DxGridLayout ColumnSpacing="3px" RowSpacing="3px">
+    <Rows>
+        <DxGridLayoutRow Height="28" />
 
-<h2 class="mb-4 mt-4">Helpful Resources</h2>
+        <DxGridLayoutRow Height="30%" />
 
-<ul>
-    <li><a class="helplink" href="https://demos.devexpress.com/blazor/" target="_blank">Online Demos</a></li>
-    <li><a class="helplink" href="https://github.com/DevExpress/Blazor/blob/master/examples.md" target="_blank">Examples</a></li>
-    <li><a class="helplink" href="https://docs.devexpress.com/Blazor/400725/blazor-components" target="_blank">Documentation</a></li>
-    <li><a class="helplink" href="https://www.devexpress.com/support/training/blazor/" target="_blank">Free Blazor Training Course</a></li>
-</ul>
+        <DxGridLayoutRow Height="28" />
+    </Rows>
+
+    <Columns>
+        <DxGridLayoutColumn Width="30%" />
+        <DxGridLayoutColumn Width="5px" />
+        <DxGridLayoutColumn Width="*" /> @*"* ile kalan alan otomatik olarak ayarlanır."*@
+    </Columns>
+
+    <Items>
+        @*row'lar ile column'ların birleşmesi sonucu hücreler oluşur. Bu hücrelerin içerisine yerleştirilen değerler Items'ların içerisine yazılır.*@
+        <DxGridLayoutItem Row="0" Column="0">
+            <Template>
+                @*component'leri Template içerisinde yazmamız zorunludur aksi halde childContent hatası alırız.*@
+                @*<DxTextBox Text="0-0"></DxTextBox> *@
+                @*<div>
+                    Adı Soyadı
+                </div>*@
+                <MyText Caption="Adı Soyadı"></MyText>
+            </Template>
+        </DxGridLayoutItem>
+
+        <DxGridLayoutItem Row="0" Column="1">
+            <Template>
+                @*<DxTextBox Text="0-1"></DxTextBox>*@
+                <div>
+                    :
+                </div>
+            </Template>
+        </DxGridLayoutItem>
+
+        <DxGridLayoutItem Row="0" Column="2">
+            <Template>
+                <DxTextBox Text="0-2"></DxTextBox>
+            </Template>
+        </DxGridLayoutItem>
+
+        @*component'leri Template içerisinde yazmamız zorunludur aksi halde childContent hatası alırız.*@
+        @*<DxGridLayoutItem Row="1" Column="0">
+        <Template>
+        <DxTextBox Text="1-0"></DxTextBox>
+        </Template>
+        </DxGridLayoutItem>*@
+
+        <DxGridLayoutItem Row="1" Column="1">
+            <Template>
+@*                <DxTextBox Text="1-1"></DxTextBox>
+*@            </Template>
+        </DxGridLayoutItem>
+
+        <DxGridLayoutItem Row="1" Column="2">
+            <Template>
+                <DxTextBox Text="1-2"></DxTextBox>
+            </Template>
+        </DxGridLayoutItem>
+
+        <DxGridLayoutItem Row="2" Column="0">
+            <Template>
+                <DxTextBox Text="2-0"></DxTextBox> @*component'leri Template içerisinde yazmamız zorunludur aksi halde childContent hatası alırız.*@
+            </Template>
+        </DxGridLayoutItem>
+
+        <DxGridLayoutItem Row="2" Column="1">
+            <Template>
+@*                <DxTextBox Text="2-1"></DxTextBox>
+*@            </Template>
+        </DxGridLayoutItem>
+
+        @*<DxGridLayoutItem Row="2" Column="2">
+        <Template>
+        <DxTextBox Text="2-2"></DxTextBox>
+        </Template>
+        </DxGridLayoutItem>*@
+    </Items>
+</DxGridLayout>
