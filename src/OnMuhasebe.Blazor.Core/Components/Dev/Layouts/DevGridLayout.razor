@@ -1,0 +1,60 @@
+﻿<DxGridLayout ColumnSpacing="@ColumnSpacing" RowSpacing="@RowSpacing">
+    <Rows>
+        @for (int i = 0; i < RowCount; i++)
+        {
+            if (RowHeights == null)
+            {
+                <DxGridLayoutRow Height="@DefaultRowHeight" />
+            }
+            else if (i < RowHeights.Length)
+            /*açıklama
+            Bu kontrolün sebebi; eğer kullanıcı RowCount olarak 5 girdiyse ve RowHeight olarak eksik değer yolladıysa (örn.[25,30]) geri kalan row'ların else bloğunda hangi değeri verdiysek ona göre bir değer almasını sağlarız.
+            Else metodunda height olarak -> "@RowHeights[RowHeights.Length-1] dersek eğer en son hangi RowHeights'i parametre aldıysak geriye kalan tüm row'lara o değer atanır."
+            Eğer yukarıdaki gibi kullanmak istemezsek yine RowHeights'lerdeki son değeri almak istersek else bloğunda Height="@RowHeights[^1]" şeklinde de kullanabiliriz.
+            */
+            {
+                <DxGridLayoutRow Height="@RowHeights[i]" />
+            }
+            else
+            {
+                <DxGridLayoutRow Height="@DefaultRowHeight" />
+            }
+        }
+    </Rows>
+
+    <Columns>
+        @for (int i = 0; i < ColumnCount; i++)
+        {
+            if (ColumnWidths == null)
+            {
+                <DxGridLayoutColumn Width="*" />
+                //"*" ile kaç adet columnCount geldiyse otomatik olarak eşit bir değer tanımlar.
+            }
+            else if (i < ColumnWidths.Length)
+            {
+                <DxGridLayoutColumn Width="@ColumnWidths[i]" />
+            }
+            else
+            {
+                <DxGridLayoutColumn Width="@ColumnWidths[^1]" />
+            }
+        }
+    </Columns>
+
+    <Items>
+        @GridLayoutItems
+    </Items>
+</DxGridLayout>
+
+
+@code {
+    //dışarıdan parametre yollamak için Parameter attribute'ü ile işaretlememiz gerekmektedir.
+    [Parameter] public string ColumnSpacing { get; set; }
+    [Parameter] public string RowSpacing { get; set; }
+    [Parameter] public int RowCount { get; set; }
+    [Parameter] public int ColumnCount { get; set; }
+    [Parameter] public string[] RowHeights { get; set; }
+    [Parameter] public string[] ColumnWidths { get; set; }
+    [Parameter] public string DefaultRowHeight { get; set; } = "28";
+    [Parameter] public RenderFragment GridLayoutItems { get; set; }
+}

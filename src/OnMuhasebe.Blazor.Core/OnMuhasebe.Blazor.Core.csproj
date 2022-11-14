@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -22,7 +22,6 @@
     <Folder Include="Components\Commons\Loadings\" />
     <Folder Include="Components\Dev\DataEditors\" />
     <Folder Include="Components\Dev\DataViewers\" />
-    <Folder Include="Components\Dev\Layouts\" />
     <Folder Include="Components\Dev\Utilities\" />
     <Folder Include="Components\Dev\Templates\" />
     <Folder Include="Helpers\" />

@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OnMuhasebe.Blazor.Core\OnMuhasebe.Blazor.Core.csproj" />
     <ProjectReference Include="..\OnMuhasebe.BlazorProject.Application\OnMuhasebe.BlazorProject.Application.csproj" />
     <ProjectReference Include="..\OnMuhasebe.BlazorProject.HttpApi\OnMuhasebe.BlazorProject.HttpApi.csproj" />
     <ProjectReference Include="..\OnMuhasebe.BlazorProject.EntityFrameworkCore\OnMuhasebe.BlazorProject.EntityFrameworkCore.csproj" />
